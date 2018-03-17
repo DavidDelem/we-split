@@ -5,8 +5,13 @@
     <!--<color name="colorAccent">#FF4081</color>-->
 
     <color name="colorPrimary">#00bcd4</color>
-    <color name="colorPrimaryDark">#0097a7</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorTextDark">#484f59</color>
     <color name="colorAccent">#f2fe71</color>
+    <color name="green">#00cf88</color>
+    <color name="orange">#f7941d</color>
+    <color name="grey">#a7abaf</color>
+    <color name="bgGrey">#757575</color>
 
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>

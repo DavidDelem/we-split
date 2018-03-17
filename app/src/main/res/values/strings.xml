@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WeSplit</string>
 
-    <string name="action_sign_in_short">Register</string>
+    <string name="action_sign_in_short">Inscription</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
@@ -11,22 +11,22 @@
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
     <string name="title_activity_profile">Firebase</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Connexion</string>
     <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
+    <string name="hint_password">Mot de passe</string>
     <string name="hint_name">Fullname</string>
-    <string name="btn_login">LOGIN</string>
-    <string name="btn_link_to_register">Not a member? Get registered in Firebase now!</string>
-    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="btn_login">Connexion</string>
+    <string name="btn_link_to_register">Pas encore membre ? Inscrivez-vous !</string>
+    <string name="btn_link_to_login">Vous avez déjà un compte ? Connectez-vous !</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
-    <string name="btn_forgot_password">Forgot your password?</string>
-    <string name="btn_reset_password">Reset Password</string>
-    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_forgot_password">Mot de passe oublié ?</string>
+    <string name="btn_reset_password">Réinitialiser</string>
+    <string name="btn_back">Retour à la page de connexion</string>
     <string name="hint_new_email">New Email</string>
     <string name="btn_change">Change</string>
     <string name="btn_send">Send</string>
     <string name="btn_remove">Remove</string>
-    <string name="btn_sign_out">Sign Out</string>
-    <string name="lbl_forgot_password">Forgot password?</string>
-    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="btn_sign_out">Déconnexion</string>
+    <string name="lbl_forgot_password">Réinitialisation du mot de passe</string>
+    <string name="forgot_password_msg">Indiquez votre adresse email et vous recevrez un mail avec les instruction supplémentaires.</string>
 </resources>
