@@ -17,7 +17,7 @@
     <string name="hint_name">Fullname</string>
     <string name="btn_login">Connexion</string>
     <string name="btn_link_to_register">Pas encore membre ? Inscrivez-vous !</string>
-    <string name="btn_link_to_login">Vous avez déjà un compte ? Connectez-vous !</string>
+    <string name="btn_link_to_login">Déjà un compte ? Connectez-vous !</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Mot de passe oublié ?</string>
     <string name="btn_reset_password">Réinitialiser</string>
