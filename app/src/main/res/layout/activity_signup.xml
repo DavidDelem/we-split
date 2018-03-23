@@ -14,7 +14,7 @@ tools:context="com.uqac.wesplit.SignupActivity">
         android:gravity="center"
         android:orientation="vertical"
         android:layout_height="140dp"
-        android:background="@color/bgGrey">
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:layout_width="217dp"
