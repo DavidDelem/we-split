@@ -29,7 +29,7 @@
     <string name="btn_sign_out">Déconnexion</string>
     <string name="lbl_forgot_password">Réinitialisation du mot de passe</string>
     <string name="forgot_password_msg">Indiquez votre adresse email et vous recevrez un mail avec les instruction supplémentaires.</string>
-    <string name="choix_groupe_bienvenue">Votre compte à été créé !\n\nPour continuer, créez un nouveau groupe ou rejoignez un groupe existant avec l'identifiant fourni par vos amis.</string>
+    <string name="choix_groupe_bienvenue">Votre compte à été créé !\n\nPour continuer, créez un nouveau groupe ou rejoignez un groupe existant.</string>
     <string name="choix_groupe_nouveau">Créer un nouveau groupe</string>
     <string name="choix_groupe_rejoindre">Rejoindre un groupe</string>
 

@@ -22,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ChoixGroupeActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChoixGroupeActivity" />
+        <activity android:name=".ConfirmationGroupeActivity"></activity>
     </application>
 
 </manifest>
