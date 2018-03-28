@@ -28,7 +28,9 @@
         <activity android:name=".ChoixGroupeActivity" />
         <activity android:name=".ConfirmationGroupeActivity" />
         <activity android:name=".AjoutDepenseActivity" />
-        <activity android:name=".ModificationDepenseActivity"></activity>
+        <activity android:name=".ModificationDepenseActivity" />
+        <activity android:name=".ParamsActivity" />
+        <activity android:name=".GestionGroupeActivity"></activity>
     </application>
 
 </manifest>
