@@ -40,7 +40,6 @@ public class ChoixGroupeActivity extends AppCompatActivity {
         btnNouveau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // rediriger vers un paneau qui indique l'identifiant à transmettre aux amis pour qu'ils rejoignent le groupe
                 String nomGroupe = inputNouveau.getText().toString();
                 String identifiantGroupe = TokenGenerator.getRandomToken(6);
 
@@ -52,14 +51,16 @@ public class ChoixGroupeActivity extends AppCompatActivity {
                 intent.putExtra("nomGroupe", nomGroupe);
                 intent.putExtra("identifiantGroupe", identifiantGroupe);
                 startActivity(intent);
+                finish();
             }
         });
 
         btnRejoindre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // vérifier que l'id existe
-                // mettre cet id dans le joueur
+                // @todo vérifier que l'id existe (=que le groupe existe déjà)
+                // @todo mettre cet id dans le joueur
+                // @todo ajouter le joueur au groupe
                 String identifiantGroupe = inputNouveau.getText().toString();
 
                 if(identifiantGroupe.length() == IDENTIFIANT_LENGTH) {
@@ -67,6 +68,7 @@ public class ChoixGroupeActivity extends AppCompatActivity {
                 }
 
                 startActivity(new Intent(ChoixGroupeActivity.this, MainActivity.class));
+                finish();
             }
         });
     }

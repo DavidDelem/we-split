@@ -40,6 +40,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
         });
 
+        // Clic sur le bouton pour réinitialiser le mot de passe
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +51,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplication(), "Entrez votre email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 progressBar.setVisibility(View.VISIBLE);
+
+                // Envoie du lien de réinitialisation du mot de passe
                 auth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -61,7 +63,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(ResetPasswordActivity.this, "Echec lors de l'envoi de l'email", Toast.LENGTH_SHORT).show();
                                 }
-
                                 progressBar.setVisibility(View.GONE);
                             }
                         });

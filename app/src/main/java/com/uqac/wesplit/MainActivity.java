@@ -1,5 +1,6 @@
 package com.uqac.wesplit;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,21 +22,28 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button signOut;
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private FirebaseDatabase database;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
+
+    private FloatingActionButton buttonAddDepense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -74,50 +83,68 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
+
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user == null) {
-            // user auth state is changed - user is null
-            // launch login activity
+        if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         } else {
-//            TextView textView =(TextView)findViewById(R.id.text);
-//            textView.setText("Hello " + user.getEmail());
-        }
+                // set view elements
 
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                System.out.println(user);
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
-                }
+
+    //        authListener = new FirebaseAuth.AuthStateListener() {
+    //            @Override
+    //            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+    //                if (firebaseAuth.getCurrentUser() == null) {
+    //                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    //                    finish();
+    //                }
+    //            }
+    //        };
+
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+            if (progressBar != null) {
+                progressBar.setVisibility(View.GONE);
             }
-        };
 
-//        signOut = (Button) findViewById(R.id.sign_out);
+            DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid());
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name = (String) dataSnapshot.child("name").getValue();
+                    String groupe = (String) dataSnapshot.child("groupe").getValue();
 
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
+                    System.out.println("*******************************************************");
+                    System.out.println(name);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
         }
 
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                signOut();
-//            }
-//        });
+        // Clic sur le bouton permettant d'aller sur l'activité d'inscription
+        buttonAddDepense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AjoutDepenseActivity.class));
+            }
+        });
+
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        System.out.println("retour à mainactivity detecté");
     }
 
     @Override
@@ -165,10 +192,6 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
-    // sign out method
-    public void signOut() {
-        auth.signOut();
     }
 
 }
