@@ -52,6 +52,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_depense_button"
+            android:src="@mipmap/ic_add_white_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             progressBar.setVisibility(View.GONE);
                                             String groupe = (String) dataSnapshot.child("groupe").getValue();
-                                            if(groupe == null) {
+                                            if(groupe == null || groupe.length() < 1) {
                                                 startActivity(new Intent(LoginActivity.this, ChoixGroupeActivity.class));
                                             } else {
                                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));

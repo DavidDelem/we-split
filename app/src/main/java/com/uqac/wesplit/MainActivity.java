@@ -19,7 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,13 +62,28 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
+                        menuItem.setChecked(true);
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_gestion_groupe:
+                                System.out.println("nav groupe");
+                                break;
+                            case R.id.nav_show_groupe:
+                                IdentifiantGroupeDialog identifiantGroupeDialog = new IdentifiantGroupeDialog(MainActivity.this);
+                                identifiantGroupeDialog.show();
+                                System.out.println("nav groupe");
+                                break;
+                            case R.id.nav_params:
+                                System.out.println("nav params");
+                                break;
+                            case R.id.nav_deconnexion:
+                                disconnect();
+                                System.out.println("nav deconnexion");
+                                break;
+                            default:
+                                break;
+                        }
 
                         return true;
                     }
@@ -85,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
 
-        //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -93,18 +111,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         } else {
-                // set view elements
 
-
-    //        authListener = new FirebaseAuth.AuthStateListener() {
-    //            @Override
-    //            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-    //                if (firebaseAuth.getCurrentUser() == null) {
-    //                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-    //                    finish();
-    //                }
-    //            }
-    //        };
+            // Création de la vue
 
             progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onResume() {
         super.onResume();
+        // refresh list?
         System.out.println("retour à mainactivity detecté");
     }
 
@@ -192,6 +201,13 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    private void disconnect() {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(getApplicationContext(), "Vous avez été déconnecté", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 
 }

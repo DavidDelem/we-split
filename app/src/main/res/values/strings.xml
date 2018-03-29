@@ -16,6 +16,8 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Mot de passe</string>
     <string name="hint_name">Fullname</string>
+    <string name="hint_nomdepense">Titre</string>
+    <string name="hint_montant">Montant</string>
     <string name="btn_login">Connexion</string>
     <string name="btn_link_to_register">Pas encore membre ? Inscrivez-vous !</string>
     <string name="btn_link_to_login">Déjà un compte ? Connectez-vous !</string>

@@ -2,20 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@android:drawable/btn_plus"
-            android:title="Blabla" />
+            android:id="@+id/nav_gestion_groupe"
+            android:icon="@mipmap/ic_people_black_24dp"
+            android:title="Gérer mon groupe" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/btn_plus"
-            android:title="Blabla" />
+            android:id="@+id/nav_show_groupe"
+            android:icon="@mipmap/ic_swap_horiz_black_24dp"
+            android:title="Inviter des amis" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@android:drawable/btn_plus"
-            android:title="Blabla" />
+            android:id="@+id/nav_params"
+            android:icon="@mipmap/ic_settings_black_24dp"
+            android:title="Paramètres du compte" />
+        <!--<item-->
+            <!--android:id="@+id/nav_notifications"-->
+            <!--android:icon="@android:drawable/ic_notification_overlay"-->
+            <!--android:title="Notifications push" />-->
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@android:drawable/btn_plus"
-            android:title="Blabla" />
+            android:id="@+id/nav_deconnexion"
+            android:icon="@mipmap/power"
+            android:title="Déconnexion" />
     </group>
 </menu>
