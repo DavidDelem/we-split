@@ -67,19 +67,17 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_gestion_groupe:
-                                System.out.println("nav groupe");
+                                startActivity(new Intent(MainActivity.this, GestionGroupeActivity.class));
                                 break;
                             case R.id.nav_show_groupe:
                                 IdentifiantGroupeDialog identifiantGroupeDialog = new IdentifiantGroupeDialog(MainActivity.this);
                                 identifiantGroupeDialog.show();
-                                System.out.println("nav groupe");
                                 break;
                             case R.id.nav_params:
-                                System.out.println("nav params");
+                                startActivity(new Intent(MainActivity.this, ParamsActivity.class));
                                 break;
                             case R.id.nav_deconnexion:
                                 disconnect();
-                                System.out.println("nav deconnexion");
                                 break;
                             default:
                                 break;

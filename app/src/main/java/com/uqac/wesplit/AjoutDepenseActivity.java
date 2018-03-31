@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.enums.CategoriesEnum;
 
+import java.util.concurrent.TimeUnit;
+
 public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSelectedListener {
 
 
@@ -81,8 +83,9 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String nomGroupe = (String) dataSnapshot.child("groupe").getValue();
+                        String nameUser = (String) dataSnapshot.child("name").getValue();
 
-                        if(nomGroupe != null) {
+                        if(nomGroupe != null && nameUser != null) {
 
                             DatabaseReference ref = database.getReference("groupes/" + nomGroupe + "/depenses");
 
@@ -91,8 +94,9 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
                             ref.child(key).child("montant").setValue(montant);
                             ref.child(key).child("categorie").setValue(depenseCategorieValue.toString());
                             // @todo rendre le payeur variable (pouvoir choisir le user qui paye)
-                            ref.child(key).child("payepar").setValue(auth.getCurrentUser().getUid());
-
+                            ref.child(key).child("payeparid").setValue(auth.getCurrentUser().getUid());
+                            ref.child(key).child("payeparname").setValue(nameUser);
+                            ref.child(key).child("timestamp").setValue(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
                             startActivity(new Intent(AjoutDepenseActivity.this, MainActivity.class));
                             finish();
                         }
@@ -100,7 +104,7 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        System.out.println("The read failed: " + databaseError.getCode());
+                        // @todo toast
                     }
                 });
             }

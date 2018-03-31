@@ -1,23 +1,29 @@
 package com.uqac.wesplit.helpers;
 
-public class Depense {
+import java.io.Serializable;
+
+public class Depense implements Serializable {
 
     private String _id;
     private String categorie;
     private String montant;
-    private String payepar;
+    private String payeparid;
+    private String payeparname;
     private String titre;
+    private String timestamp;
 
     public Depense() {
 
     }
 
-    public Depense(String _id, String categorie, String montant, String payepar, String titre) {
+    public Depense(String _id, String categorie, String montant, String payeparid, String payeparname, String titre, String timestamp) {
         this._id = _id;
         this.categorie = categorie;
         this.montant = montant;
-        this.payepar = payepar;
+        this.payeparid = payeparid;
+        this.payeparname = payeparname;
         this.titre = titre;
+        this.timestamp = timestamp;
     }
 
     public String get_id() {
@@ -28,9 +34,7 @@ public class Depense {
         this._id = _id;
     }
 
-    public String getCategorie() {
-        return categorie;
-    }
+    public String getCategorie() { return categorie; }
 
     public void setCategorie(String categorie) {
         this.categorie = categorie;
@@ -44,12 +48,20 @@ public class Depense {
         this.montant = montant;
     }
 
-    public String getPayepar() {
-        return payepar;
+    public String getPayeparid() {
+        return payeparid;
     }
 
-    public void setPayepar(String payepar) {
-        this.payepar = payepar;
+    public void setPayeparid(String payeparid) {
+        this.payeparid = payeparid;
+    }
+
+    public String getPayeparname() {
+        return payeparname;
+    }
+
+    public void setPayeparname(String payeparname) {
+        this.payeparname = payeparname;
     }
 
     public String getTitre() {
@@ -58,6 +70,14 @@ public class Depense {
 
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -72,9 +92,12 @@ public class Depense {
             return false;
         if (montant != null ? !montant.equals(depense.montant) : depense.montant != null)
             return false;
-        if (payepar != null ? !payepar.equals(depense.payepar) : depense.payepar != null)
+        if (payeparid != null ? !payeparid.equals(depense.payeparid) : depense.payeparid != null)
             return false;
-        return titre != null ? titre.equals(depense.titre) : depense.titre == null;
+        if (payeparname != null ? !payeparname.equals(depense.payeparname) : depense.payeparname != null)
+            return false;
+        if (titre != null ? !titre.equals(depense.titre) : depense.titre != null) return false;
+        return timestamp != null ? timestamp.equals(depense.timestamp) : depense.timestamp == null;
     }
 
     @Override
@@ -82,8 +105,10 @@ public class Depense {
         int result = _id != null ? _id.hashCode() : 0;
         result = 31 * result + (categorie != null ? categorie.hashCode() : 0);
         result = 31 * result + (montant != null ? montant.hashCode() : 0);
-        result = 31 * result + (payepar != null ? payepar.hashCode() : 0);
+        result = 31 * result + (payeparid != null ? payeparid.hashCode() : 0);
+        result = 31 * result + (payeparname != null ? payeparname.hashCode() : 0);
         result = 31 * result + (titre != null ? titre.hashCode() : 0);
+        result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         return result;
     }
 
@@ -93,8 +118,10 @@ public class Depense {
                 "_id='" + _id + '\'' +
                 ", categorie='" + categorie + '\'' +
                 ", montant='" + montant + '\'' +
-                ", payepar='" + payepar + '\'' +
+                ", payeparid='" + payeparid + '\'' +
+                ", payeparname='" + payeparname + '\'' +
                 ", titre='" + titre + '\'' +
+                ", timestamp='" + timestamp + '\'' +
                 '}';
     }
 }

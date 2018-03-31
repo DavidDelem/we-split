@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    tools:context="com.uqac.wesplit.AjoutDepenseActivity">
+    tools:context="com.uqac.wesplit.AjoutDepenseActivity"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_depense"
@@ -30,8 +32,7 @@
             android:layout_marginLeft="30dp"
             android:text="Nouvelle dépense"
             android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textSize="18dp"/>
 
     </android.support.v7.widget.Toolbar>
 

@@ -37,6 +37,8 @@
     <string name="choix_groupe_nouveau">Créer un nouveau groupe</string>
     <string name="choix_groupe_rejoindre">Rejoindre un groupe</string>
     <string name="btn_ajout_depense">Ajouter la dépense</string>
+    <string name="btn_modification_depense">Modifier la dépense</string>
+    <string name="btn_suppression_depense">Supprimer la dépense</string>
     <string name="btn_retour">Retour</string>
 
     <!-- TODO: Remove or change this placeholder text -->
