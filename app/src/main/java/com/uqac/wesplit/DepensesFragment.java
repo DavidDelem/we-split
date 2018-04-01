@@ -73,6 +73,20 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 DatabaseReference ref = database.getReference("groupes/" + groupe + "/depenses");
 
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getChildrenCount() == 0) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
                 ref.addChildEventListener(new ChildEventListener() {
 
                     @Override
@@ -91,16 +105,11 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
                     }
 
                     @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    }
-
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    }
-
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
 
                 });
 

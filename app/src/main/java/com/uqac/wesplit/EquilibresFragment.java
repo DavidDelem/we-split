@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class EquilibresFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private CalculateurEquilibre calculateurEquilibre;
+    private ProgressBar progressBar;
     private LinearLayout ll;
     Map<String, String> usersGroupe;
 
@@ -48,7 +50,9 @@ public class EquilibresFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         calculateurEquilibre = new CalculateurEquilibre();
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
+        progressBar.setVisibility(View.VISIBLE);
         DatabaseReference refUser = database.getReference("users/" + auth.getCurrentUser().getUid());
 
         refUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -62,9 +66,10 @@ public class EquilibresFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        progressBar.setVisibility(View.GONE);
                         usersGroupe = (HashMap<String, String>) dataSnapshot.getValue();
 
-                        for (String identifiant : usersGroupe.values()) {
+                        for (String identifiant : usersGroupe.keySet()) {
                             calculateurEquilibre.ajouterUtilsateur(identifiant);
                         }
 
@@ -84,7 +89,6 @@ public class EquilibresFragment extends Fragment {
 
                                     View equilibreElem = LayoutInflater.from(getContext()).inflate(R.layout.row_equilibre, ll, false);
 
-
                                     TextView textView = (TextView) equilibreElem.findViewById(R.id.equilibre_montant_1);
                                     TextView textView2 = (TextView) equilibreElem.findViewById(R.id.equilibre_user_1);
                                     TextView textView3 = (TextView) equilibreElem.findViewById(R.id.equilibre_montant_2);
@@ -102,7 +106,7 @@ public class EquilibresFragment extends Fragment {
                                     } else {
                                         textView.setText(depense1 + "$");
                                     }
-                                    textView2.setText(pair1.getKey() + "");
+                                    textView2.setText(usersGroupe.get(pair1.getKey()) + "");
 
 
                                     if(pair2 != null) {
@@ -112,7 +116,7 @@ public class EquilibresFragment extends Fragment {
                                         } else {
                                             textView3.setText(depense2 + "$");
                                         }
-                                        textView4.setText(pair2.getKey() + "");
+                                        textView4.setText(usersGroupe.get(pair2.getKey()) + "");
                                     } else {
                                         textView3.setVisibility(View.INVISIBLE);
                                         textView4.setVisibility(View.INVISIBLE);

@@ -73,20 +73,33 @@ public class ChoixGroupeActivity extends AppCompatActivity {
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String nomGroupe = (String) dataSnapshot.child("name").getValue();
+                            final String nomGroupe = (String) dataSnapshot.child("name").getValue();
 
                             if(nomGroupe != null) {
 
-                                DatabaseReference ref = database.getReference();
-                                ref.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue(identifiantGroupe);
-                                ref.child("groupes").child(identifiantGroupe).child("users").child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
+                                DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/name");
 
-                                Intent intent = new Intent(ChoixGroupeActivity.this, ConfirmationGroupeActivity.class);
-                                intent.putExtra("type", "rejoindre");
-                                intent.putExtra("nomGroupe", nomGroupe);
-                                intent.putExtra("identifiantGroupe", identifiantGroupe);
-                                startActivity(intent);
-                                finish();
+                                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        DatabaseReference ref = database.getReference();
+                                        ref.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue(identifiantGroupe);
+                                        ref.child("groupes").child(identifiantGroupe).child("users").child(auth.getCurrentUser().getUid()).setValue(dataSnapshot.getValue());
+
+                                        Intent intent = new Intent(ChoixGroupeActivity.this, ConfirmationGroupeActivity.class);
+                                        intent.putExtra("type", "rejoindre");
+                                        intent.putExtra("nomGroupe", nomGroupe);
+                                        intent.putExtra("identifiantGroupe", identifiantGroupe);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+
                             }
                         }
 

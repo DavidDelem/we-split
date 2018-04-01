@@ -22,8 +22,10 @@ public class CalculateurEquilibre {
         if(depenses != null) {
             for (Map<String, String> depense : depenses.values()) {
                 String id = depense.get("payeparid");
-                utilisateurDepense.put(id, utilisateurDepense.get(id) + Float.parseFloat(depense.get("montant")));
-                totalDepenses = totalDepenses + Float.parseFloat(depense.get("montant"));
+                if(utilisateurDepense.get(id) != null) {
+                    utilisateurDepense.put(id, utilisateurDepense.get(id) + Float.parseFloat(depense.get("montant")));
+                    totalDepenses = totalDepenses + Float.parseFloat(depense.get("montant"));
+                }
             }
         }
 //        }
