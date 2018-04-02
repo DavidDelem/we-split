@@ -18,7 +18,6 @@ public class CalculateurEquilibre {
     }
 
     public void ajouterDepenses(Map<String, Map<String, String>> depenses) {
-//        for(int i = 0; i < depenses.size(); i++) {
         if(depenses != null) {
             for (Map<String, String> depense : depenses.values()) {
                 String id = depense.get("payeparid");
@@ -28,7 +27,6 @@ public class CalculateurEquilibre {
                 }
             }
         }
-//        }
     }
 
     public String getEquilibreUtilisateur(String identifiant) {

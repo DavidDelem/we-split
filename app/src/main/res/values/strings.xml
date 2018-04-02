@@ -39,6 +39,9 @@
     <string name="btn_ajout_depense">Ajouter la dépense</string>
     <string name="btn_modification_depense">Modifier la dépense</string>
     <string name="btn_suppression_depense">Supprimer la dépense</string>
+    <string name="btn_afficher_identifiant_groupe">Inviter des amis</string>
+    <string name="btn_quitter_groupe">Quitter</string>
+    <string name="btn_supprimer_groupe">Supprimer</string>
     <string name="btn_retour">Retour</string>
 
     <!-- TODO: Remove or change this placeholder text -->

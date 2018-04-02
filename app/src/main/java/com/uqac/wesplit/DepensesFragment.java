@@ -34,7 +34,6 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
-    private ArrayAdapter<String> adapterTest;
     private ArrayAdapter<Depense> adapter;
 
     public DepensesFragment(){}

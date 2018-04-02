@@ -80,7 +80,14 @@
             <Spinner
                 android:id="@+id/depense_categorie"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <Spinner
+                android:id="@+id/depense_payepar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/btn_modification_depense"

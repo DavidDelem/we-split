@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,13 +33,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private FirebaseAuth.AuthStateListener authListener;
+    private View headerView;
+    private TextView headerName, headerEmail;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
@@ -55,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.nav_view);
+        headerName = navigationView.getHeaderView(0).findViewById(R.id.header_name);
+        headerEmail = navigationView.getHeaderView(0).findViewById(R.id.header_email);
+        toolbar = (Toolbar) findViewById(R.id.mytoolbar);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -123,11 +129,9 @@ public class MainActivity extends AppCompatActivity {
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = (String) dataSnapshot.child("name").getValue();
-                    String groupe = (String) dataSnapshot.child("groupe").getValue();
+                    headerName.setText((String) dataSnapshot.child("name").getValue());
+                    headerEmail.setText(auth.getCurrentUser().getEmail());
 
-                    System.out.println("*******************************************************");
-                    System.out.println(name);
                 }
 
                 @Override
@@ -137,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-
         // Clic sur le bouton permettant d'aller sur l'activité d'inscription
         buttonAddDepense.setOnClickListener(new View.OnClickListener() {
             @Override

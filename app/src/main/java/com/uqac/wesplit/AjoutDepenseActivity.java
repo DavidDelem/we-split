@@ -1,5 +1,6 @@
 package com.uqac.wesplit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,17 +22,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.enums.CategoriesEnum;
+import com.uqac.wesplit.helpers.User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSelectedListener {
+public class AjoutDepenseActivity extends AppCompatActivity {
 
-
+    private Context activity;
     private EditText depenseTitre, depenseMontant;
     private Spinner spinnerCategories, spinnerPayePar;
     private Button btnConfirmer;
     private ImageButton btnBack;
     private CategoriesEnum depenseCategorieValue;
+    private User payePar;
+    private List<User> userList;
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -41,9 +49,11 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_depense);
 
+        activity = this;
         depenseTitre = (EditText) findViewById(R.id.depense_titre);
         depenseMontant = (EditText) findViewById(R.id.depense_montant);
         spinnerCategories = (Spinner) findViewById(R.id.depense_categorie);
+        spinnerPayePar = (Spinner) findViewById(R.id.depense_payepar);
         btnConfirmer = (Button) findViewById(R.id.btn_ajout_depense);
         btnBack = (ImageButton) findViewById(R.id.btn_depense_retour);
 
@@ -52,7 +62,50 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
 
         // Création de la liste des catégories de dépenses possibles
         spinnerCategories.setAdapter(new ArrayAdapter<CategoriesEnum>(this, android.R.layout.simple_spinner_dropdown_item, CategoriesEnum.values()));
-        spinnerCategories.setOnItemSelectedListener(this);
+
+        DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                DatabaseReference ref = database.getReference("groupes/" + dataSnapshot.getValue() + "/users");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Map<String, String> usersGroupe = (Map<String, String>) dataSnapshot.getValue();
+                        userList = new ArrayList<User>();
+                        int positionMoi = 0;
+                        int i = 0;
+                        for (Map.Entry<String, String> entry : usersGroupe.entrySet()) {
+                            userList.add(new User(entry.getKey(), entry.getValue()));
+                            if(entry.getKey().equals(auth.getCurrentUser().getUid())) {
+                                positionMoi = i;
+                            }
+                            i++;
+                        }
+
+                        ArrayAdapter<User> spinnerAdapter = new ArrayAdapter<User>(activity, android.R.layout.simple_spinner_item, userList);
+                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerPayePar.setAdapter(spinnerAdapter);
+                        spinnerPayePar.setSelection(positionMoi);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
 
         // Ajout d'une dépense
         btnConfirmer.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +147,8 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
                             ref.child(key).child("montant").setValue(montant);
                             ref.child(key).child("categorie").setValue(depenseCategorieValue.toString());
                             // @todo rendre le payeur variable (pouvoir choisir le user qui paye)
-                            ref.child(key).child("payeparid").setValue(auth.getCurrentUser().getUid());
-                            ref.child(key).child("payeparname").setValue(nameUser);
+                            ref.child(key).child("payeparid").setValue(payePar.getIdentifiant());
+                            ref.child(key).child("payeparname").setValue(payePar.getName());
                             ref.child(key).child("timestamp").setValue(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
                             startActivity(new Intent(AjoutDepenseActivity.this, MainActivity.class));
                             finish();
@@ -119,19 +172,34 @@ public class AjoutDepenseActivity extends AppCompatActivity implements OnItemSel
             }
         });
 
+        spinnerCategories.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+                depenseCategorieValue = (CategoriesEnum) adapterView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
+        });
+
+        spinnerPayePar.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+                payePar = (User) adapterView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
+        });
+
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-        Spinner spinner = (Spinner) parent;
-        if(spinner.getId() == R.id.depense_categorie) {
-            depenseCategorieValue = (CategoriesEnum) parent.getItemAtPosition(pos);
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

@@ -1,5 +1,6 @@
 package com.uqac.wesplit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,16 +23,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.enums.CategoriesEnum;
 import com.uqac.wesplit.helpers.Depense;
+import com.uqac.wesplit.helpers.User;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ModificationDepenseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private Context activity;
     private EditText depenseTitre, depenseMontant;
     private Spinner spinnerCategories, spinnerPayePar;
     private Button btnConfirmer, btnSupprimer;
     private ImageButton btnBack;
     private CategoriesEnum depenseCategorieValue;
+    private User payePar;
+    private List<User> userList;
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -41,9 +49,11 @@ public class ModificationDepenseActivity extends AppCompatActivity implements Ad
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_depense);
 
+        activity = this;
         depenseTitre = (EditText) findViewById(R.id.depense_titre);
         depenseMontant = (EditText) findViewById(R.id.depense_montant);
         spinnerCategories = (Spinner) findViewById(R.id.depense_categorie);
+        spinnerPayePar = (Spinner) findViewById(R.id.depense_payepar);
         btnConfirmer = (Button) findViewById(R.id.btn_modification_depense);
         btnSupprimer = (Button) findViewById(R.id.btn_suppression_depense);
         btnBack = (ImageButton) findViewById(R.id.btn_depense_retour);
@@ -59,6 +69,50 @@ public class ModificationDepenseActivity extends AppCompatActivity implements Ad
         depenseTitre.setText(depense.getTitre());
         depenseMontant.setText(depense.getMontant());
         spinnerCategories.setSelection(getIndex(spinnerCategories, depense.getCategorie()));
+
+        DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                DatabaseReference ref = database.getReference("groupes/" + dataSnapshot.getValue() + "/users");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Map<String, String> usersGroupe = (Map<String, String>) dataSnapshot.getValue();
+                        userList = new ArrayList<User>();
+                        int positionMoi = 0;
+                        int i = 0;
+                        for (Map.Entry<String, String> entry : usersGroupe.entrySet()) {
+                            userList.add(new User(entry.getKey(), entry.getValue()));
+                            if(entry.getKey().equals(depense.getPayeparid())) {
+                                positionMoi = i;
+                            }
+                            i++;
+                        }
+
+                        ArrayAdapter<User> spinnerAdapter = new ArrayAdapter<User>(activity, android.R.layout.simple_spinner_item, userList);
+                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerPayePar.setAdapter(spinnerAdapter);
+                        spinnerPayePar.setSelection(positionMoi);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
 
         btnConfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
