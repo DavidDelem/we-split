@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
+import com.uqac.wesplit.dialogs.SupprimerGroupeDialog;
 import com.uqac.wesplit.helpers.Depense;
 import com.uqac.wesplit.helpers.DepenseAdapter;
 import com.uqac.wesplit.helpers.User;
@@ -37,6 +38,7 @@ public class GestionGroupeActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private ArrayAdapter<User> adapter;
+    private String identifiantGroupe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,8 @@ public class GestionGroupeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                DatabaseReference ref = database.getReference("groupes/" + dataSnapshot.getValue() + "/users");
+                identifiantGroupe = (String) dataSnapshot.getValue();
+                DatabaseReference ref = database.getReference("groupes/" + identifiantGroupe + "/users");
 
                 ref.addChildEventListener(new ChildEventListener() {
 
@@ -128,7 +131,8 @@ public class GestionGroupeActivity extends AppCompatActivity {
         btnSupprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SupprimerGroupeDialog supprimerGroupeDialog = new SupprimerGroupeDialog(GestionGroupeActivity.this, identifiantGroupe);
+                supprimerGroupeDialog.show();
             }
         });
 

@@ -3,7 +3,7 @@ package com.uqac.wesplit.enums;
 public enum CategoriesEnum {
 
     COURSES ("Courses"),
-    HABITATION ("Habitation"),
+    HABITATION ("Logement"),
     LOISIRS ("Loisirs"),
     TRANSPORTS ("Transport"),
     SANTE ("Santé"),

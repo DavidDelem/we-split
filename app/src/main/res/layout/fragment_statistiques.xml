@@ -2,18 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
+
+    <Spinner
+        android:layout_marginTop="15dp"
+        android:id="@+id/spinner_periode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
+        android:id="@+id/depenses_totales_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Statistiques Fragment"
-        android:id="@+id/textView_movie"
         android:layout_gravity="center_horizontal"/>
-    <ImageView
+
+
+    <TextView
+        android:id="@+id/depenses_periode_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView" android:src="@drawable/wespliticon"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Statistiques Fragment"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/categories_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"/>
 
 </LinearLayout>
