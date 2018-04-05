@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/txt_titre"
+        android:layout_below="@id/txt_identifiant_groupe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="Quitter le groupe"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/txt_infos"
+        android:layout_below="@id/txt_titre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="Vous pourrez revenir dans le groupe si vous le souhaitez."
+        android:textSize="15dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/btn_confirmer_quitter_modal"
+        android:layout_below="@id/txt_infos"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="60dip"
+        android:text="Confirmer"
+        android:stateListAnimator="@null"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_exit_quitter_modal"
+        android:layout_below="@id/btn_confirmer_quitter_modal"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="60dip"
+        android:text="Annuler"
+        android:stateListAnimator="@null"
+        android:textAllCaps="false" />
+
+</RelativeLayout>

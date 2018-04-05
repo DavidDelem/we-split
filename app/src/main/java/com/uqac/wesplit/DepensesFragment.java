@@ -62,7 +62,6 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         progressBar.setVisibility(View.VISIBLE);
 
-
         DatabaseReference refUser = database.getReference("users/" + auth.getCurrentUser().getUid());
 
         refUser.addValueEventListener(new ValueEventListener() {

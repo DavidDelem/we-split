@@ -64,10 +64,7 @@ public class SupprimerGroupeDialog extends Dialog {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("identifiant", identifiantGroupe);
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(c.getApplicationContext(), "Identifiant copié dans le presse papier", Toast.LENGTH_SHORT).show();
+                supprimerGroupe();
             }
         });
     }
