@@ -83,7 +83,7 @@ public class ChoixGroupeActivity extends AppCompatActivity {
 
                     DatabaseReference ref = database.getReference("groupes/" + identifiantGroupe);
 
-                    ref.addValueEventListener(new ValueEventListener() {
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             final String nomGroupe = (String) dataSnapshot.child("name").getValue();

@@ -52,6 +52,7 @@ public class ConfirmationGroupeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ConfirmationGroupeActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
