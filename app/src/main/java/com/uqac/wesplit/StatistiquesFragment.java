@@ -48,6 +48,7 @@ public class StatistiquesFragment extends Fragment {
     private CalculateurStatistiques calculateurStatistiques;
     private PieChart categoriesChart;
     private PieDataSet set;
+    private ArrayList<Depense> items;
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -79,7 +80,8 @@ public class StatistiquesFragment extends Fragment {
         spinnerPeriode.setAdapter(new ArrayAdapter<PeriodesEnum>(getActivity(), android.R.layout.simple_spinner_dropdown_item, PeriodesEnum.values()));
         spinnerPeriode.setZ(100);
 
-        final ArrayList<Depense> items = new ArrayList<>();
+
+        items = new ArrayList<>();
         calculateurStatistiques = new CalculateurStatistiques();
 
         categoriesChart.setHoleRadius(33);
@@ -102,29 +104,15 @@ public class StatistiquesFragment extends Fragment {
         categoriesChart.setData(data);
         categoriesChart.invalidate();
 
+
+
         spinnerPeriode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
                 periodeSelected = (PeriodesEnum) adapterView.getItemAtPosition(position);
-
-                calculateurStatistiques.repartirDepenses(items, periodeSelected);
-
-                List<PieEntry> entries = new ArrayList<>();
-                Iterator it = calculateurStatistiques.obtenirPourcentages().entrySet().iterator();
-
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    if((Float) pair.getValue() > 0.0f) {
-                        entries.add(new PieEntry((Float) pair.getValue(), pair.getKey().toString()));
-                    }
-                }
-
-                set.setValues(entries);
-                PieData data = new PieData(set);
-                categoriesChart.setData(data);
-                categoriesChart.invalidate();
+                refreshGraph(periodeSelected);
             }
 
             @Override
@@ -163,14 +151,13 @@ public class StatistiquesFragment extends Fragment {
                         Depense depense = dataSnapshot.getValue(Depense.class);
                         depense.set_id(dataSnapshot.getKey());
                         items.add(depense);
-//                        spinnerPeriode.setSelection(0);
-//                      simuler clic
+                        refreshGraph(PeriodesEnum.SEPTJOURS);
                     }
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
                         items.remove(dataSnapshot.getValue(Depense.class));
-//                      simuler clic
+                        refreshGraph(PeriodesEnum.SEPTJOURS);
                     }
 
                     @Override
@@ -193,4 +180,23 @@ public class StatistiquesFragment extends Fragment {
         return view;
     }
 
+    private void refreshGraph(PeriodesEnum periodeSelected) {
+
+        calculateurStatistiques.repartirDepenses(items, periodeSelected);
+
+        List<PieEntry> entries = new ArrayList<>();
+        Iterator it = calculateurStatistiques.obtenirPourcentages().entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            if((Float) pair.getValue() > 0.0f) {
+                entries.add(new PieEntry((Float) pair.getValue(), pair.getKey().toString()));
+            }
+        }
+
+        set.setValues(entries);
+        PieData data = new PieData(set);
+        categoriesChart.setData(data);
+        categoriesChart.invalidate();
+    }
 }
