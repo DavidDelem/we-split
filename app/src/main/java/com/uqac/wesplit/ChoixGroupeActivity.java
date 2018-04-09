@@ -43,20 +43,33 @@ public class ChoixGroupeActivity extends AppCompatActivity {
         btnNouveau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomGroupe = inputNouveau.getText().toString();
-                String identifiantGroupe = TokenGenerator.getRandomToken(6);
+                final String nomGroupe = inputNouveau.getText().toString();
+                final String identifiantGroupe = TokenGenerator.getRandomToken(6);
 
-                DatabaseReference ref = database.getReference();
-                ref.child("groupes").child(identifiantGroupe).child("users").child(auth.getCurrentUser().getUid()).setValue(auth.getCurrentUser().getUid());
-                ref.child("groupes").child(identifiantGroupe).child("name").setValue(nomGroupe);
-                ref.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue(identifiantGroupe);
+                DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/name");
 
-                Intent intent = new Intent(ChoixGroupeActivity.this, ConfirmationGroupeActivity.class);
-                intent.putExtra("type", "nouveau");
-                intent.putExtra("nomGroupe", nomGroupe);
-                intent.putExtra("identifiantGroupe", identifiantGroupe);
-                startActivity(intent);
-                finish();
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        DatabaseReference ref = database.getReference();
+                        ref.child("groupes").child(identifiantGroupe).child("users").child(auth.getCurrentUser().getUid()).setValue(dataSnapshot.getValue());
+                        ref.child("groupes").child(identifiantGroupe).child("name").setValue(nomGroupe);
+                        ref.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue(identifiantGroupe);
+
+                        Intent intent = new Intent(ChoixGroupeActivity.this, ConfirmationGroupeActivity.class);
+                        intent.putExtra("type", "nouveau");
+                        intent.putExtra("nomGroupe", nomGroupe);
+                        intent.putExtra("identifiantGroupe", identifiantGroupe);
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+
+                });
             }
         });
 

@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         headerName = navigationView.getHeaderView(0).findViewById(R.id.header_name);
         headerEmail = navigationView.getHeaderView(0).findViewById(R.id.header_email);
         toolbar = (Toolbar) findViewById(R.id.mytoolbar);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.mytabs);
+        buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -100,14 +103,6 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.mipmap.ic_menu_white_24dp);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.mytabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
-
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -129,8 +124,20 @@ public class MainActivity extends AppCompatActivity {
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    headerName.setText((String) dataSnapshot.child("name").getValue());
-                    headerEmail.setText(auth.getCurrentUser().getEmail());
+
+                    String groupe = (String) dataSnapshot.child("groupe").getValue();
+
+                    if(groupe == null || groupe.length() == 0) {
+                        startActivity(new Intent(MainActivity.this, ChoixGroupeActivity.class));
+                        finish();
+                    } else {
+
+                        setViewPager(viewPager);
+                        tabLayout.setupWithViewPager(viewPager);
+
+                        headerName.setText((String) dataSnapshot.child("name").getValue());
+                        headerEmail.setText(auth.getCurrentUser().getEmail());
+                    }
 
                 }
 
