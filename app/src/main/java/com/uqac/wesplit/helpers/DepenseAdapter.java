@@ -68,7 +68,7 @@ public class DepenseAdapter extends ArrayAdapter<Depense> {
                 categorie.setText(i.getCategorie());
             }
             if (montant != null){
-                montant.setText(i.getMontant() + "$");
+                montant.setText(i.getMontant() + " $CA");
             }
         }
 
