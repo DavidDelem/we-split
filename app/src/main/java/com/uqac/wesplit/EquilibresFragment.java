@@ -102,9 +102,9 @@ public class EquilibresFragment extends Fragment {
 
                                     if(Float.parseFloat(depense1) >= 0.0f ) {
                                         textView.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_green));
-                                        textView.setText("+" + depense1 + "$");
+                                        textView.setText("+" + String.format("%.2f", Float.parseFloat(depense1)) + "$");
                                     } else {
-                                        textView.setText(depense1 + "$");
+                                        textView.setText(String.format("%.2f", Float.parseFloat(depense1)) + "$");
                                     }
                                     textView2.setText(usersGroupe.get(pair1.getKey()) + "");
 
@@ -112,9 +112,9 @@ public class EquilibresFragment extends Fragment {
                                     if(pair2 != null) {
                                         if(Float.parseFloat(depense2) >= 0.0f ) {
                                             textView3.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_green));
-                                            textView3.setText("+" + depense2 + "$");
+                                            textView3.setText("+" + String.format("%.2f", Float.parseFloat(depense2)) + "$");
                                         } else {
-                                            textView3.setText(depense2 + "$");
+                                            textView3.setText(String.format("%.2f", Float.parseFloat(depense2)) + "$");
                                         }
                                         textView4.setText(usersGroupe.get(pair2.getKey()) + "");
                                     } else {
