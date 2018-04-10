@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
 
+    private ImageButton buttonChat;
     private FloatingActionButton buttonAddDepense;
 
     @Override
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
+        buttonChat = (ImageButton) findViewById(R.id.btn_chat);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -153,6 +156,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AjoutDepenseActivity.class));
+            }
+        });
+
+        // Clic sur le boutton permettant d'aller sur le chat
+        buttonChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
             }
         });
 

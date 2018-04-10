@@ -30,7 +30,8 @@
         <activity android:name=".AjoutDepenseActivity" />
         <activity android:name=".ModificationDepenseActivity" />
         <activity android:name=".ParamsActivity" />
-        <activity android:name=".GestionGroupeActivity"></activity>
+        <activity android:name=".GestionGroupeActivity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

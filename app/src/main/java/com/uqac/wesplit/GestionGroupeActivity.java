@@ -93,23 +93,6 @@ public class GestionGroupeActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {}
 
                 });
-//
-//                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        Map<String, String> usersGroupe = (Map<String, String>) dataSnapshot.getValue();
-//                        List<User> userList = new ArrayList<User>();
-//                        for (Map.Entry<String, String> entry : usersGroupe.entrySet()) {
-//                            userList.add(new User(entry.getKey(), entry.getValue()));
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                    }
-//                });
 
             }
 
