@@ -5,7 +5,36 @@
     android:layout_marginRight="15dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="15dp">
-
+    <RelativeLayout
+        android:id="@+id/zone_text_left"
+        android:layout_marginRight="100dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/text_left"
+            android:text="test"
+            android:background="@drawable/rounded_message_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/text_left_bottom"
+            android:text="David"
+            android:layout_below="@+id/text_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="12dp"
+            android:paddingRight="3dp"
+            android:paddingTop="5dp"/>
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/zone_text_right"
         android:layout_marginLeft="100dp"
