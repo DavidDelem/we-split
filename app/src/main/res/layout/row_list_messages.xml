@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="15dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="15dp">
@@ -14,7 +15,7 @@
         <TextView
             android:layout_alignParentLeft="true"
             android:id="@+id/text_left"
-            android:text="test"
+            android:text="tes sfsf sfsf fdggdg gdg dgdg d gd dg t"
             android:background="@drawable/rounded_message_grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,16 +25,24 @@
             android:paddingLeft="15dp"
             android:textColor="#000000"
             android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/text_left_bottom"
-            android:text="David"
-            android:layout_below="@+id/text_left"
+        <LinearLayout
+            android:gravity="right"
+            android:layout_alignLeft="@+id/text_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textSize="12dp"
-            android:paddingRight="3dp"
-            android:paddingTop="5dp"/>
+            android:layout_below="@+id/text_left"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/text_left_bottom"
+                android:text="David"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="left"
+                android:paddingLeft="3dp"
+                android:paddingTop="5dp"/>
+
+        </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/zone_text_right"
@@ -54,16 +63,24 @@
             android:paddingLeft="15dp"
             android:textColor="#ffffff"
             android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/text_right_bottom"
-            android:text="David"
-            android:layout_below="@+id/text_right"
+        <LinearLayout
+            android:gravity="right"
+            android:layout_alignRight="@+id/text_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="12dp"
-            android:paddingRight="3dp"
-            android:paddingTop="5dp"/>
+            android:layout_below="@+id/text_right"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/text_right_bottom"
+                android:text="David"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="right"
+                android:paddingRight="3dp"
+                android:paddingTop="5dp"/>
+
+        </LinearLayout>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

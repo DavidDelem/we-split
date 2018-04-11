@@ -67,7 +67,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                     message.setText(i.getMessage());
                 }
                 if (nameDate != null) {
-                    nameDate.setText(i.getName() + ", le " + sf.format(date));
+                    nameDate.setText("Moi, le " + sf.format(date));
                 }
 
             } else {
@@ -83,7 +83,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                     message.setText(i.getMessage());
                 }
                 if (nameDate != null) {
-                    nameDate.setText(i.getName() + ", " + sf.format(date));
+                    nameDate.setText(i.getName() + ", le " + sf.format(date));
                 }
             }
         }
