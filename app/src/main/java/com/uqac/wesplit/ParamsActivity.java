@@ -16,11 +16,14 @@ public class ParamsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
+        // Récupération des éléments de la vue
         inputEmail = (EditText) findViewById(R.id.email);
         inputEmail.setText(auth.getCurrentUser().getEmail());
+
         // A FAIRE:
 
         // modifier mon adresse mail (a faire avec les fonctions de firebase)

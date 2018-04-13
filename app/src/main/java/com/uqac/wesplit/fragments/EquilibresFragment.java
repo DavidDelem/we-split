@@ -1,6 +1,5 @@
-package com.uqac.wesplit;
+package com.uqac.wesplit.fragments;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,18 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.wesplit.R;
 import com.uqac.wesplit.helpers.CalculateurEquilibre;
-import com.uqac.wesplit.helpers.Depense;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -79,7 +76,7 @@ public class EquilibresFragment extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // récupérer dépenses
-                                Map<String, Map<String, String>> depensesGroupe = (Map<String, Map<String, String>>) dataSnapshot.getValue();
+                                Map<String, Map<String, Object>> depensesGroupe = (Map<String, Map<String, Object>>) dataSnapshot.getValue();
                                 calculateurEquilibre.ajouterDepenses(depensesGroupe);
 
                                 Iterator it = calculateurEquilibre.getUtilisateurDepense().entrySet().iterator();

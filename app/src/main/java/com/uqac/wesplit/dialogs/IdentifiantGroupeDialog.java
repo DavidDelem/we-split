@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,11 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uqac.wesplit.ChoixGroupeActivity;
-import com.uqac.wesplit.ConfirmationGroupeActivity;
-import com.uqac.wesplit.LoginActivity;
 import com.uqac.wesplit.R;
-import com.uqac.wesplit.ResetPasswordActivity;
 
 public class IdentifiantGroupeDialog extends Dialog {
 

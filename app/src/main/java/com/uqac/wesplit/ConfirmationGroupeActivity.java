@@ -28,6 +28,7 @@ public class ConfirmationGroupeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation_groupe);
 
+        // Récupération des éléments de la vue
         identifiantGroupeText = (TextView) findViewById(R.id.confirmationgroupe_identifiant);
         confirmationGroupeText = (TextView) findViewById(R.id.confirmationgroupe_texte);
         btnContinuer = (Button) findViewById(R.id.btn_continuer);

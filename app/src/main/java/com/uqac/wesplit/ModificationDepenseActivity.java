@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,13 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.enums.CategoriesEnum;
-import com.uqac.wesplit.helpers.Depense;
-import com.uqac.wesplit.helpers.User;
+import com.uqac.wesplit.adapters.Depense;
+import com.uqac.wesplit.adapters.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class ModificationDepenseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -48,8 +46,9 @@ public class ModificationDepenseActivity extends AppCompatActivity implements Ad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_depense);
-
         activity = this;
+
+        // Récupération des éléments de la vue
         depenseTitre = (EditText) findViewById(R.id.depense_titre);
         depenseMontant = (EditText) findViewById(R.id.depense_montant);
         spinnerCategories = (Spinner) findViewById(R.id.depense_categorie);

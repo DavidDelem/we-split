@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -19,15 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uqac.wesplit.enums.CategoriesEnum;
-import com.uqac.wesplit.helpers.Depense;
-import com.uqac.wesplit.helpers.Message;
-import com.uqac.wesplit.helpers.MessageAdapter;
-import com.uqac.wesplit.helpers.User;
-import com.uqac.wesplit.helpers.UserAdapter;
+import com.uqac.wesplit.adapters.Message;
+import com.uqac.wesplit.adapters.MessageAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -45,9 +39,9 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
         activity = this;
 
+        // Récupération des éléments de la vue
         message = (EditText) findViewById(R.id.message);
 //        btnEnvoyer = (Button) findViewById(R.id.btn_chat_envoyer);
         btnBack = (ImageButton) findViewById(R.id.btn_chat_retour);

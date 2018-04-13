@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -20,14 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
 import com.uqac.wesplit.dialogs.SupprimerGroupeDialog;
-import com.uqac.wesplit.helpers.Depense;
-import com.uqac.wesplit.helpers.DepenseAdapter;
-import com.uqac.wesplit.helpers.User;
-import com.uqac.wesplit.helpers.UserAdapter;
+import com.uqac.wesplit.adapters.User;
+import com.uqac.wesplit.adapters.UserAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class GestionGroupeActivity extends AppCompatActivity {
 
@@ -45,6 +43,7 @@ public class GestionGroupeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gestion_groupe);
 
+        // Récupération des éléments de la vue
         btnRetour = (ImageButton) findViewById(R.id.btn_groupe_retour);
         btnSupprimer = (Button) findViewById(R.id.btn_supprimer_groupe);
         btnQuitter = (Button) findViewById(R.id.btn_quitter_groupe);
@@ -101,8 +100,6 @@ public class GestionGroupeActivity extends AppCompatActivity {
             }
         });
 
-
-
         btnIdentifiant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +130,17 @@ public class GestionGroupeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(GestionGroupeActivity.this, MainActivity.class));
                 finish();
+            }
+        });
+
+        listUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // When clicked, show a toast with the TextView text
+                User user = (User) parent.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(),
+                        "Clicked on: " + user.getIdentifiant(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

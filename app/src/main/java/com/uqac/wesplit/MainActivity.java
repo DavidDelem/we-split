@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,24 +16,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.wesplit.auth.LoginActivity;
 import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
-
-import org.w3c.dom.Text;
+import com.uqac.wesplit.fragments.DepensesFragment;
+import com.uqac.wesplit.fragments.EquilibresFragment;
+import com.uqac.wesplit.fragments.StatistiquesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
+    private NavigationView navigationView;
 
     private ImageButton buttonChat;
     private FloatingActionButton buttonAddDepense;
@@ -60,15 +58,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Récupération des éléments de la vue
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        headerName = navigationView.getHeaderView(0).findViewById(R.id.header_name);
-        headerEmail = navigationView.getHeaderView(0).findViewById(R.id.header_email);
+        navigationView = findViewById(R.id.nav_view);
         toolbar = (Toolbar) findViewById(R.id.mytoolbar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         buttonAddDepense = (FloatingActionButton) findViewById(R.id.add_depense_button);
         buttonChat = (ImageButton) findViewById(R.id.btn_chat);
+        headerName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_name);
+        headerEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_email);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

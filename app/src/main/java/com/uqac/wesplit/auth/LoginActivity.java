@@ -1,4 +1,4 @@
-package com.uqac.wesplit;
+package com.uqac.wesplit.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.wesplit.ChoixGroupeActivity;
+import com.uqac.wesplit.MainActivity;
+import com.uqac.wesplit.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
+        // Récupération des éléments de la vue
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

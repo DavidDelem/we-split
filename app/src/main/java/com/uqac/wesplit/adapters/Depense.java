@@ -1,6 +1,7 @@
-package com.uqac.wesplit.helpers;
+package com.uqac.wesplit.adapters;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class Depense implements Serializable {
 
@@ -11,12 +12,12 @@ public class Depense implements Serializable {
     private String payeparname;
     private String titre;
     private String timestamp;
+    private Map<String,String> users;
 
     public Depense() {
-
     }
 
-    public Depense(String _id, String categorie, String montant, String payeparid, String payeparname, String titre, String timestamp) {
+    public Depense(String _id, String categorie, String montant, String payeparid, String payeparname, String titre, String timestamp, Map<String, String> users) {
         this._id = _id;
         this.categorie = categorie;
         this.montant = montant;
@@ -24,6 +25,7 @@ public class Depense implements Serializable {
         this.payeparname = payeparname;
         this.titre = titre;
         this.timestamp = timestamp;
+        this.users = users;
     }
 
     public String get_id() {
@@ -80,6 +82,14 @@ public class Depense implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public Map<String, String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Map<String, String> users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,7 +107,9 @@ public class Depense implements Serializable {
         if (payeparname != null ? !payeparname.equals(depense.payeparname) : depense.payeparname != null)
             return false;
         if (titre != null ? !titre.equals(depense.titre) : depense.titre != null) return false;
-        return timestamp != null ? timestamp.equals(depense.timestamp) : depense.timestamp == null;
+        if (timestamp != null ? !timestamp.equals(depense.timestamp) : depense.timestamp != null)
+            return false;
+        return users != null ? users.equals(depense.users) : depense.users == null;
     }
 
     @Override
@@ -109,6 +121,7 @@ public class Depense implements Serializable {
         result = 31 * result + (payeparname != null ? payeparname.hashCode() : 0);
         result = 31 * result + (titre != null ? titre.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
+        result = 31 * result + (users != null ? users.hashCode() : 0);
         return result;
     }
 
@@ -122,6 +135,7 @@ public class Depense implements Serializable {
                 ", payeparname='" + payeparname + '\'' +
                 ", titre='" + titre + '\'' +
                 ", timestamp='" + timestamp + '\'' +
+                ", users=" + users +
                 '}';
     }
 }

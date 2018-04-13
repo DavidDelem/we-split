@@ -1,4 +1,4 @@
-package com.uqac.wesplit;
+package com.uqac.wesplit.auth;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,6 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.uqac.wesplit.ChoixGroupeActivity;
+import com.uqac.wesplit.R;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -34,6 +36,7 @@ public class SignupActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        // Récupération des éléments de la vue
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);

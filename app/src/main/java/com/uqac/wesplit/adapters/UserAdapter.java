@@ -1,31 +1,33 @@
-package com.uqac.wesplit.helpers;
+package com.uqac.wesplit.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.uqac.wesplit.R;
 
 import java.util.ArrayList;
 
-public class DepenseAdapter extends ArrayAdapter<Depense> {
+public class UserAdapter extends ArrayAdapter<User> {
 
-    private ArrayList<Depense> objects;
+    private ArrayList<User> objects;
 
-    public DepenseAdapter(Context context, int textViewResourceId, ArrayList<Depense> objects) {
+    public UserAdapter(Context context, int textViewResourceId, ArrayList<User> objects) {
         super(context, textViewResourceId, objects);
         this.objects = objects;
     }
 
     @Override
-    public Depense getItem(int position) {
+    public User getItem(int position) {
         return super.getItem(getCount() - position - 1);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, final ViewGroup parent){
 
         // assign the view we are converting to a local variable
         View v = convertView;
@@ -34,7 +36,7 @@ public class DepenseAdapter extends ArrayAdapter<Depense> {
         // to inflate it basically means to render, or show, the view.
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.row_list_depenses, null);
+            v = inflater.inflate(R.layout.row_list_users, null);
         }
 
 		/*
@@ -44,7 +46,7 @@ public class DepenseAdapter extends ArrayAdapter<Depense> {
 		 *
 		 * Therefore, i refers to the current Item object.
 		 */
-        Depense i = getItem(position);
+        User i = getItem(position);
 
         if (i != null) {
 
@@ -52,30 +54,38 @@ public class DepenseAdapter extends ArrayAdapter<Depense> {
             // These TextViews are created in the XML files we defined.
 
             TextView titre = (TextView) v.findViewById(R.id.view_titre);
-            TextView payepar = (TextView) v.findViewById(R.id.view_paye_par);
-            TextView categorie = (TextView) v.findViewById(R.id.view_categorie);
-            TextView montant = (TextView) v.findViewById(R.id.view_montant);
+//            TextView payepar = (TextView) v.findViewById(R.id.view_paye_par);
+//            TextView categorie = (TextView) v.findViewById(R.id.view_categorie);
+//            TextView montant = (TextView) v.findViewById(R.id.view_montant);
 
             // check to see if each individual textview is null.
             // if not, assign some text!
             if (titre != null){
-                titre.setText(i.getTitre());
+                titre.setText(i.getName());
             }
-            if (payepar != null){
-                payepar.setText("payé par " + i.getPayeparname());
-            }
-            if (categorie != null){
-                categorie.setText(i.getCategorie());
-            }
-            if (montant != null){
-                montant.setText(i.getMontant() + " $CA");
-            }
+//            if (payepar != null){
+//                payepar.setText("payé par " + i.getPayeparname());
+//            }
+//            if (categorie != null){
+//                categorie.setText(i.getCategorie());
+//            }
+//            if (montant != null){
+//                montant.setText(i.getMontant() + "$");
+//            }
         }
+
+        ImageButton imageButton = v.findViewById(R.id.btn_suppr_user);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ((ListView) parent).performItemClick(v, position, 0); // Let the event be handled in onItemClick()
+            }
+        });
 
         // the view must be returned to our activity
         return v;
 
     }
-
 
 }

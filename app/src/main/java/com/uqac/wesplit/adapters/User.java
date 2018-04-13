@@ -1,9 +1,11 @@
-package com.uqac.wesplit.helpers;
+package com.uqac.wesplit.adapters;
 
 public class User {
 
     private String identifiant;
     private String name;
+    boolean selected = true;
+
 
     public User(String identifiant, String name) {
         this.identifiant = identifiant;
@@ -24,6 +26,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     @Override

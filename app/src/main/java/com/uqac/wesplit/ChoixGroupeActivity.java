@@ -31,6 +31,7 @@ public class ChoixGroupeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_groupe);
 
+        // Récupération des éléments de la vue
         inputNouveau = (EditText) findViewById(R.id.nouveaugroupe);
         inputRejoindre = (EditText) findViewById(R.id.rejoindregroupe);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

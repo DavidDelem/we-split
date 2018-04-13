@@ -1,4 +1,4 @@
-package com.uqac.wesplit.helpers;
+package com.uqac.wesplit.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

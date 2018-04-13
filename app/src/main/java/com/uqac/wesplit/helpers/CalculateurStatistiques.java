@@ -1,6 +1,6 @@
 package com.uqac.wesplit.helpers;
 
-import com.github.mikephil.charting.data.PieEntry;
+import com.uqac.wesplit.adapters.Depense;
 import com.uqac.wesplit.enums.CategoriesEnum;
 import com.uqac.wesplit.enums.PeriodesEnum;
 
@@ -32,7 +32,7 @@ public class CalculateurStatistiques {
 
         if(depenses != null) {
             for (Depense depense : depenses) {
-                    if(Long.valueOf(depense.getTimestamp()) > timestampDebut || nbJours == 0) {
+                    if(depense.getTimestamp() != null && (Long.valueOf(depense.getTimestamp()) > timestampDebut || nbJours == 0)) {
                         CategoriesEnum categorie = CategoriesEnum.getEnum(depense.getCategorie());
                         repartitionDepenses.put(categorie, repartitionDepenses.get(categorie) + Float.parseFloat(depense.getMontant()));
                         totalDepenses += Float.parseFloat(depense.getMontant());

@@ -17,26 +17,45 @@ public class CalculateurEquilibre {
         utilisateurDepense.put(identifiant, 0.0f);
     }
 
-    public void ajouterDepenses(Map<String, Map<String, String>> depenses) {
+    public void ajouterDepenses(Map<String, Map<String, Object>> depenses) {
         if(depenses != null) {
-            for (Map<String, String> depense : depenses.values()) {
-                String id = depense.get("payeparid");
-                if(utilisateurDepense.get(id) != null) {
-                    utilisateurDepense.put(id, utilisateurDepense.get(id) + Float.parseFloat(depense.get("montant")));
-                    totalDepenses = totalDepenses + Float.parseFloat(depense.get("montant"));
+            for (Map<String, Object> depense : depenses.values()) {
+//                String id = (String) depense.get("payeparid");
+//                if(utilisateurDepense.get(id) != null) {
+//                    utilisateurDepense.put(id, utilisateurDepense.get(id) + Float.parseFloat((String) depense.get("montant")));
+//                    totalDepenses = totalDepenses + Float.parseFloat((String) depense.get("montant"));
+//                }
+
+                String id = (String) depense.get("payeparid");
+                Map<String, String> users = (Map<String, String>) depense.get("users");
+                Float montant = Float.parseFloat((String) depense.get("montant"));
+
+                if(users != null) {
+                    for (String user : users.values()) {
+                        if (utilisateurDepense.get(id) != null) {
+                            if (user.equals(id)) {
+                                Float result = montant - (montant / user.length());
+                                utilisateurDepense.put(id, utilisateurDepense.get(id) + result);
+                            } else {
+                                Float result = -(montant / user.length());
+                                utilisateurDepense.put(id, utilisateurDepense.get(id) + result);
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
     public String getEquilibreUtilisateur(String identifiant) {
-        Float depensesParUtilisateurEgales = totalDepenses / utilisateurDepense.size();
-
-        if(utilisateurDepense.get(identifiant) < depensesParUtilisateurEgales) {
-            return Float.toString(0.0f - depensesParUtilisateurEgales + utilisateurDepense.get(identifiant));
-        } else {
-            return Float.toString(utilisateurDepense.get(identifiant) - depensesParUtilisateurEgales);
-        }
+//        Float depensesParUtilisateurEgales = totalDepenses / utilisateurDepense.size();
+//
+//        if(utilisateurDepense.get(identifiant) < depensesParUtilisateurEgales) {
+//            return Float.toString(0.0f - depensesParUtilisateurEgales + utilisateurDepense.get(identifiant));
+//        } else {
+//            return Float.toString(utilisateurDepense.get(identifiant) - depensesParUtilisateurEgales);
+//        }
+        return Float.toString(utilisateurDepense.get(identifiant));
     }
 
     public Float getTotalDepenses() {

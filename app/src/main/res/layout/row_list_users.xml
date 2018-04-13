@@ -37,7 +37,7 @@
         <!--android:text="50$"-->
         <!--android:layout_centerVertical="true" />-->
     <ImageButton
-        android:id="@+id/btn_depense_retour"
+        android:id="@+id/btn_suppr_user"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"

@@ -1,4 +1,4 @@
-package com.uqac.wesplit.helpers;
+package com.uqac.wesplit.adapters;
 
 public class Message {
 
