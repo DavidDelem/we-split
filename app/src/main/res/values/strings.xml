@@ -15,6 +15,10 @@
     <string name="title_activity_login">Connexion</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Mot de passe</string>
+    <string name="hint_oldPassword">Mot de passe actuel</string>
+    <string name="hint_newPassword">Nouveau mot de passe</string>
+    <string name="hint_newPasswordConfirmation">Confirmer le nouveau mot de passe</string>
+
     <string name="hint_name">Fullname</string>
     <string name="hint_nomdepense">Titre</string>
     <string name="hint_montant">Montant</string>
@@ -43,7 +47,7 @@
     <string name="btn_quitter_groupe">Quitter</string>
     <string name="btn_supprimer_groupe">Supprimer</string>
     <string name="btn_retour">Retour</string>
-
+    <string name="btn_edit">Modifier</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
