@@ -47,61 +47,100 @@ public class ParamsActivity extends AppCompatActivity {
         btnEdit = (Button) findViewById(R.id.btn_edit);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+
+
         // Clic sur le bouton permettant de modifier les informations du compte
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Boolean changeEmail = false;
+                Boolean changePassword = true;
+
                 final String email = inputEmail.getText().toString();
                 final String oldPassword = inputOldPassword.getText().toString();
                 final String newPassword = inputNewPassword.getText().toString();
                 final String passwordConfirmation = inputPasswordConfirmation.getText().toString();
 
+                final FirebaseUser user = auth.getInstance().getCurrentUser();
+
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Entrez une adresse email", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if(!email.equals(user.getEmail())) changeEmail = true;
+
                 if (TextUtils.isEmpty(oldPassword)) {
-                    Toast.makeText(getApplicationContext(), "Ancien mot de passe vide", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Entrez votre ancien motde passe", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(newPassword) || newPassword.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Entrez un nouveau mot de passe de 6 caractères ou plus", Toast.LENGTH_SHORT).show();
-                    return;
+                if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(passwordConfirmation)) {
+                    changePassword = false;
+                } else {
+                    if (!newPassword.equals(passwordConfirmation)) {
+                        Toast.makeText(getApplicationContext(), "Les 2 nouveaux mots de passe ne sont pas identiques", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(newPassword) || newPassword.length() < 6) {
+                        Toast.makeText(getApplicationContext(), "Entrez un nouveau mot de passe de 6 caractères ou plus", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
-                if (!newPassword.equals(passwordConfirmation)) {
-                    Toast.makeText(getApplicationContext(), "Les 2 nouveaux mots de passe ne sont pas identiques", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
+
 
                 progressBar.setVisibility(View.VISIBLE);
 
 
                 //On doit réauthentifier l'user pour modifier ses infos (sinon erreur firebase)
-                final FirebaseUser user = auth.getInstance().getCurrentUser();
                 AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
 
-
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), "Mot de passe mis à jour", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Erreur mot de passe non changé", Toast.LENGTH_SHORT).show();
+                if(changePassword) {
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Mot de passe mis à jour", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Erreur mot de passe non changé", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Ancien mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                                });
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Ancien mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+                if(changeEmail) {
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Adresse mail mise à jour", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Erreur, adresse mail non changée", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Ancien mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
         // A FAIRE:
