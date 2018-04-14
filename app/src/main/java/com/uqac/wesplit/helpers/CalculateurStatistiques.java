@@ -34,6 +34,8 @@ public class CalculateurStatistiques {
             repartitionDepenses.put(categorie, 0f);
         }
 
+        totalDepenses = 0.0f;
+
         if(depenses != null) {
             for (Depense depense : depenses) {
                     if(depense.getTimestamp() != null && (Long.valueOf(depense.getTimestamp()) > timestampDebut || nbJours == 0)) {
