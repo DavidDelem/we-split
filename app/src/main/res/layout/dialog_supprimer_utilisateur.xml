@@ -11,6 +11,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
         android:text="Supprimer un utilisateur"
         android:textSize="18dp"
         android:textStyle="bold"

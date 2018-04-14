@@ -26,11 +26,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // assign the view we are converting to a local variable
         View v = convertView;
 
-        // first check to see if the view is null. if so, we have to inflate it.
-        // to inflate it basically means to render, or show, the view.
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.row_list_messages, null);
@@ -39,26 +36,20 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-		/*
-		 * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 *
-		 * Therefore, i refers to the current Item object.
-		 */
         Message i = getItem(position);
 
 
         RelativeLayout relativeLayoutRight = (RelativeLayout) v.findViewById(R.id.zone_text_right);
         RelativeLayout relativeLayoutLeft = (RelativeLayout) v.findViewById(R.id.zone_text_left);
-        relativeLayoutLeft.setVisibility(View.INVISIBLE);
+
+        relativeLayoutRight.setVisibility(View.INVISIBLE);
         relativeLayoutLeft.setVisibility(View.INVISIBLE);
 
         if (i != null && i.getUserid() != null && i.getDate() != null && i.getMessage() != null && i.getUser() != null) {
 
 
             SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = new Date(Long.parseLong(i.getDate()));
+            Date date = new Date(Long.parseLong(i.getDate()) * 1000);
             String id = auth.getCurrentUser().getUid();
             String userid = i.getUserid();
             if(i.getUserid().equals(auth.getCurrentUser().getUid())) {

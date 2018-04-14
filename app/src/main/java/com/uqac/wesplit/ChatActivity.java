@@ -115,6 +115,8 @@ public class ChatActivity extends AppCompatActivity {
                     return;
                 }
 
+                inputMessage.setText("");
+
                 DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
 
                 Map<String,String> datas = new HashMap<>();
