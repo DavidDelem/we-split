@@ -89,6 +89,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="16dp"
+                android:text="Pour qui ?"/>
+
+            <ListView
+                android:id="@+id/listview_users_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:background="@color/white" />
+
             <Button
                 android:id="@+id/btn_modification_depense"
                 android:layout_width="fill_parent"

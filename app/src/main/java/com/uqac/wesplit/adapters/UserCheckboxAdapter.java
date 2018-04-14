@@ -55,7 +55,7 @@ public class UserCheckboxAdapter extends ArrayAdapter<User> {
             // if not, assign some text!
             if (checkBox != null){
                 checkBox.setText(i.getName());
-                checkBox.setChecked(true);
+                checkBox.setChecked(i.isSelected());
             }
         }
 

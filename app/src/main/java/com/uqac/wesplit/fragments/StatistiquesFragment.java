@@ -37,7 +37,7 @@ import java.util.Map;
 public class StatistiquesFragment extends Fragment {
 
     private Spinner spinnerPeriode;
-    private TextView depensesTotales, depensesPeriode;
+    private TextView depensesPeriode;
     private PeriodesEnum periodeSelected;
     private CalculateurStatistiques calculateurStatistiques;
     private PieChart categoriesChart;
@@ -63,8 +63,7 @@ public class StatistiquesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistiques, container, false);
 
-//        TextView depensesTotales = (TextView) view.findViewById(R.id.depenses_totales_text);
-//        TextView depensesPeriode = (TextView) view.findViewById(R.id.depenses_periode_text);
+        depensesPeriode = (TextView) view.findViewById(R.id.depenses_periode_text);
         spinnerPeriode = (Spinner) view.findViewById(R.id.spinner_periode);
         categoriesChart = (PieChart) view.findViewById(R.id.categories_chart);
 
@@ -123,20 +122,6 @@ public class StatistiquesFragment extends Fragment {
                 String groupe = (String) dataSnapshot.child("groupe").getValue();
 
                 DatabaseReference ref = database.getReference("groupes/" + groupe + "/depenses");
-//
-//                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if(dataSnapshot.getChildrenCount() == 0) {
-////                            progressBar.setVisibility(View.GONE);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                    }
-//                });
-
 
                 ref.addChildEventListener(new ChildEventListener() {
 
@@ -192,5 +177,7 @@ public class StatistiquesFragment extends Fragment {
         PieData data = new PieData(set);
         categoriesChart.setData(data);
         categoriesChart.invalidate();
+
+        depensesPeriode.setText("Dépenses totales sur la période: " + String.valueOf(calculateurStatistiques.getTotalDepenses()) + " $");
     }
 }

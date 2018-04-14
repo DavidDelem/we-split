@@ -4,17 +4,17 @@ public class Message {
 
     private String _id;
     private String message;
-    private String name;
+    private String user;
     private String userid;
     private String date;
 
     public Message() {
     }
 
-    public Message(String _id, String message, String name, String userid, String date) {
+    public Message(String _id, String message, String user, String userid, String date) {
         this._id = _id;
         this.message = message;
-        this.name = name;
+        this.user = user;
         this.userid = userid;
         this.date = date;
     }
@@ -27,12 +27,12 @@ public class Message {
         this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public String getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getDate() {
@@ -69,7 +69,7 @@ public class Message {
         if (_id != null ? !_id.equals(message1._id) : message1._id != null) return false;
         if (message != null ? !message.equals(message1.message) : message1.message != null)
             return false;
-        if (name != null ? !name.equals(message1.name) : message1.name != null) return false;
+        if (user != null ? !user.equals(message1.user) : message1.user != null) return false;
         if (userid != null ? !userid.equals(message1.userid) : message1.userid != null)
             return false;
         return date != null ? date.equals(message1.date) : message1.date == null;
@@ -79,7 +79,7 @@ public class Message {
     public int hashCode() {
         int result = _id != null ? _id.hashCode() : 0;
         result = 31 * result + (message != null ? message.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (userid != null ? userid.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
@@ -90,8 +90,8 @@ public class Message {
         return "Message{" +
                 "_id='" + _id + '\'' +
                 ", message='" + message + '\'' +
-                ", name='" + name + '\'' +
-                ", userId='" + userid + '\'' +
+                ", user='" + user + '\'' +
+                ", userid='" + userid + '\'' +
                 ", date='" + date + '\'' +
                 '}';
     }

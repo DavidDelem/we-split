@@ -13,22 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"/>
 
-    <!--<TextView-->
-        <!--android:id="@+id/depenses_totales_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Statistiques Fragment"-->
-        <!--android:layout_gravity="center_horizontal"/>-->
-
-
-    <!--<TextView-->
-        <!--android:id="@+id/depenses_periode_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="Statistiques Fragment"-->
-        <!--android:layout_gravity="center_horizontal"/>-->
+    <TextView
+        android:id="@+id/depenses_periode_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Dépenses totales sur la période:"
+        android:textSize="12dp"
+        android:layout_gravity="center_horizontal"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/categories_chart"

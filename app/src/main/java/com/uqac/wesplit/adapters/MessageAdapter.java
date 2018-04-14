@@ -48,18 +48,22 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 		 */
         Message i = getItem(position);
 
-        if (i != null) {
+
+        RelativeLayout relativeLayoutRight = (RelativeLayout) v.findViewById(R.id.zone_text_right);
+        RelativeLayout relativeLayoutLeft = (RelativeLayout) v.findViewById(R.id.zone_text_left);
+        relativeLayoutLeft.setVisibility(View.INVISIBLE);
+        relativeLayoutLeft.setVisibility(View.INVISIBLE);
+
+        if (i != null && i.getUserid() != null && i.getDate() != null && i.getMessage() != null && i.getUser() != null) {
 
 
             SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date(Long.parseLong(i.getDate()));
-            String id= auth.getCurrentUser().getUid();
+            String id = auth.getCurrentUser().getUid();
             String userid = i.getUserid();
             if(i.getUserid().equals(auth.getCurrentUser().getUid())) {
 
-                RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.zone_text_left);
-                relativeLayout.setVisibility(View.INVISIBLE);
-
+                relativeLayoutRight.setVisibility(View.VISIBLE);
                 TextView message = (TextView) v.findViewById(R.id.text_right);
                 TextView nameDate = (TextView) v.findViewById(R.id.text_right_bottom);
 
@@ -71,11 +75,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                 }
 
             } else {
-
-
-                RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.zone_text_right);
-                relativeLayout.setVisibility(View.INVISIBLE);
-
+                relativeLayoutLeft.setVisibility(View.VISIBLE);
                 TextView message = (TextView) v.findViewById(R.id.text_left);
                 TextView nameDate = (TextView) v.findViewById(R.id.text_left_bottom);
 
@@ -83,7 +83,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
                     message.setText(i.getMessage());
                 }
                 if (nameDate != null) {
-                    nameDate.setText(i.getName() + ", le " + sf.format(date));
+                    nameDate.setText(i.getUser() + ", le " + sf.format(date));
                 }
             }
         }

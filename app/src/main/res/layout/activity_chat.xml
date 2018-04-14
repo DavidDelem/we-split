@@ -37,6 +37,8 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:id="@+id/listview_messages"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         android:layout_below="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,13 +48,13 @@
         android:cacheColorHint="@android:color/transparent"
         android:background="@color/white"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <EditText
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="75dp"
             android:layout_marginLeft="15dp"
             android:id="@+id/message"
             android:layout_width="fill_parent"
@@ -64,13 +66,15 @@
             android:scrollHorizontally="false" />
 
         <Button
-            android:id="@+id/sendmessage"
+            android:id="@+id/btn_envoyer"
             android:text='>'
+            android:layout_alignParentRight="true"
             android:gravity="center"
             android:layout_gravity= "center_vertical|center_horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
+            android:layout_marginRight="15dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -24,12 +24,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.wesplit.adapters.Depense;
 import com.uqac.wesplit.adapters.UserAdapter;
 import com.uqac.wesplit.adapters.UserCheckboxAdapter;
 import com.uqac.wesplit.enums.CategoriesEnum;
 import com.uqac.wesplit.adapters.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -160,22 +162,24 @@ public class AjoutDepenseActivity extends AppCompatActivity {
 
                             DatabaseReference ref = database.getReference("groupes/" + nomGroupe + "/depenses");
 
-                            String key = ref.push().getKey();
-                            ref.child(key).child("titre").setValue(titre);
-                            ref.child(key).child("montant").setValue(montant);
-                            ref.child(key).child("categorie").setValue(depenseCategorieValue.toString());
-                            // @todo rendre le payeur variable (pouvoir choisir le user qui paye)
-                            ref.child(key).child("payeparid").setValue(payePar.getIdentifiant());
-                            ref.child(key).child("payeparname").setValue(payePar.getName());
-                            ref.child(key).child("timestamp").setValue(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
-
-                            List<User> list = userList;
+                            Map<String, String> userMap = new HashMap<>();
 
                             for(User user : userList) {
                                 if(user.isSelected()) {
-                                    ref.child(key).child("users").child(user.getIdentifiant()).setValue(user.getIdentifiant());
+                                    userMap.put(user.getIdentifiant(), user.getIdentifiant());
                                 }
                             }
+
+                            Depense depense = new Depense();
+                            depense.setTitre(titre);
+                            depense.setMontant(montant);
+                            depense.setCategorie(depenseCategorieValue.toString());
+                            depense.setPayeparid(payePar.getIdentifiant());
+                            depense.setPayeparname(payePar.getName());
+                            depense.setTimestamp(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
+                            depense.setUsers(userMap);
+
+                            ref.child(ref.push().getKey()).setValue(depense);
 
                             startActivity(new Intent(AjoutDepenseActivity.this, MainActivity.class));
                             finish();
@@ -203,10 +207,6 @@ public class AjoutDepenseActivity extends AppCompatActivity {
                 } else {
                     userList.get(userList.indexOf(user)).setSelected(false);
                 }
-
-                Toast.makeText(getApplicationContext(),
-                        "Clicked on: " + user.getIdentifiant(),
-                        Toast.LENGTH_LONG).show();
             }
         });
 

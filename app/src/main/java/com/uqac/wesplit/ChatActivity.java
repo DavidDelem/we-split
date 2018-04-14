@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -20,17 +22,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.adapters.Message;
 import com.uqac.wesplit.adapters.MessageAdapter;
+import com.uqac.wesplit.adapters.User;
+import com.uqac.wesplit.auth.SignupActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
 
     private Context activity;
-    private EditText message;
+    private EditText inputMessage;
     private Button btnEnvoyer;
     private ImageButton btnBack;
     private ListView listMessages;
     private ArrayAdapter<Message> adapter;
+    private Map<String, String> userInfos;
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -42,26 +50,29 @@ public class ChatActivity extends AppCompatActivity {
         activity = this;
 
         // Récupération des éléments de la vue
-        message = (EditText) findViewById(R.id.message);
-//        btnEnvoyer = (Button) findViewById(R.id.btn_chat_envoyer);
+        inputMessage = (EditText) findViewById(R.id.message);
+        btnEnvoyer = (Button) findViewById(R.id.btn_envoyer);
         btnBack = (ImageButton) findViewById(R.id.btn_chat_retour);
         listMessages = (ListView) findViewById(R.id.listview_messages);
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
+        userInfos = new HashMap<>();
         final ArrayList<Message> messages = new ArrayList<>();
 
         adapter = new MessageAdapter(ChatActivity.this, R.layout.row_list_messages, messages);
         listMessages.setAdapter(adapter);
 
-        DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe");
+        DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid());
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                DatabaseReference ref = database.getReference("groupes/" + (String) dataSnapshot.getValue() + "/messages");
+                userInfos =  (Map<String, String>) dataSnapshot.getValue();
+
+                DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
 
                 ref.addChildEventListener(new ChildEventListener() {
 
@@ -92,6 +103,32 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+        // Envoi du message
+        btnEnvoyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String message = inputMessage.getText().toString();
+
+                if (TextUtils.isEmpty(message)) {
+                    Toast.makeText(getApplicationContext(), "Entrez un message !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
+
+                Map<String,String> datas = new HashMap<>();
+                datas.put("message", message);
+                datas.put("date", TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
+                datas.put("user", userInfos.get("name"));
+                datas.put("userid", auth.getCurrentUser().getUid());
+
+                String key = ref.push().getKey();
+                ref.child(key).setValue(datas);
+
+            }
+        });
+
         // Retour à l'activité principale
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,13 +137,5 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // Retour à l'activité principale
-//        btnEnvoyer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////
-//            }
-//        });
     }
 }

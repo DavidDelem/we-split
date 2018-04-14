@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,9 +22,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.dialogs.IdentifiantGroupeDialog;
+import com.uqac.wesplit.dialogs.QuitterGroupeDialog;
 import com.uqac.wesplit.dialogs.SupprimerGroupeDialog;
 import com.uqac.wesplit.adapters.User;
 import com.uqac.wesplit.adapters.UserAdapter;
+import com.uqac.wesplit.dialogs.SupprimerUtilisateurDialog;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,7 @@ public class GestionGroupeActivity extends AppCompatActivity {
     private Button btnSupprimer, btnQuitter, btnIdentifiant;
     private ImageButton btnRetour;
     private ListView listUsers;
+    private TextView nomGroupe;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -44,6 +48,7 @@ public class GestionGroupeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gestion_groupe);
 
         // Récupération des éléments de la vue
+        nomGroupe = (TextView) findViewById(R.id.nom_groupe_texte);
         btnRetour = (ImageButton) findViewById(R.id.btn_groupe_retour);
         btnSupprimer = (Button) findViewById(R.id.btn_supprimer_groupe);
         btnQuitter = (Button) findViewById(R.id.btn_quitter_groupe);
@@ -65,9 +70,22 @@ public class GestionGroupeActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 identifiantGroupe = (String) dataSnapshot.getValue();
-                DatabaseReference ref = database.getReference("groupes/" + identifiantGroupe + "/users");
+                DatabaseReference refUsers = database.getReference("groupes/" + identifiantGroupe + "/users");
+                DatabaseReference refNom = database.getReference("groupes/" + identifiantGroupe + "/name");
 
-                ref.addChildEventListener(new ChildEventListener() {
+
+                refNom.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        nomGroupe.setText((String) dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                refUsers.addChildEventListener(new ChildEventListener() {
 
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -120,7 +138,8 @@ public class GestionGroupeActivity extends AppCompatActivity {
         btnQuitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                QuitterGroupeDialog quitterGroupeDialog = new QuitterGroupeDialog(GestionGroupeActivity.this, identifiantGroupe);
+                quitterGroupeDialog.show();
             }
         });
 
@@ -136,11 +155,9 @@ public class GestionGroupeActivity extends AppCompatActivity {
         listUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // When clicked, show a toast with the TextView text
                 User user = (User) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(),
-                        "Clicked on: " + user.getIdentifiant(),
-                        Toast.LENGTH_LONG).show();
+                SupprimerUtilisateurDialog supprimerUtilisateurDialog = new SupprimerUtilisateurDialog(GestionGroupeActivity.this, identifiantGroupe, user.getIdentifiant());
+                supprimerUtilisateurDialog.show();
             }
         });
     }

@@ -32,13 +32,13 @@ public class CalculateurEquilibre {
 
                 if(users != null) {
                     for (String user : users.values()) {
-                        if (utilisateurDepense.get(id) != null) {
+                        if (utilisateurDepense.get(user) != null) {
                             if (user.equals(id)) {
-                                Float result = montant - (montant / user.length());
-                                utilisateurDepense.put(id, utilisateurDepense.get(id) + result);
+                                Float result = montant - (montant / users.size());
+                                utilisateurDepense.put(user, utilisateurDepense.get(user) + result);
                             } else {
-                                Float result = -(montant / user.length());
-                                utilisateurDepense.put(id, utilisateurDepense.get(id) + result);
+                                Float result = montant / users.size();
+                                utilisateurDepense.put(user, utilisateurDepense.get(user) - result);
                             }
                         }
                     }
