@@ -75,7 +75,7 @@ public class EquilibresFragment extends Fragment {
                         refDepensesGroupe.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                // récupérer dépenses
+
                                 Map<String, Map<String, Object>> depensesGroupe = (Map<String, Map<String, Object>>) dataSnapshot.getValue();
                                 calculateurEquilibre.ajouterDepenses(depensesGroupe);
 

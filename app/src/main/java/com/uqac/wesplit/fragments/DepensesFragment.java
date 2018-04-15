@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -25,12 +26,15 @@ import com.uqac.wesplit.R;
 import com.uqac.wesplit.adapters.Depense;
 import com.uqac.wesplit.adapters.DepenseAdapter;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
 public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private ListView listview;
+    private TextView textNoDepenses;
     private SwipeRefreshLayout swipeLayout;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -49,6 +53,7 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
         View view = inflater.inflate(R.layout.fragment_depenses, container, false);
         listview = (ListView) view.findViewById(R.id.listview_depenses);
 
+        textNoDepenses = (TextView) view.findViewById(R.id.text_no_depenses);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);
@@ -77,6 +82,7 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.getChildrenCount() == 0) {
                             progressBar.setVisibility(View.GONE);
+                            textNoDepenses.setVisibility(View.VISIBLE);
                         }
                     }
 

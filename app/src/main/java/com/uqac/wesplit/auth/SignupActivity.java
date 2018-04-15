@@ -93,12 +93,11 @@ public class SignupActivity extends AppCompatActivity {
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
 
                                 // En cas d'échec d'authentification, on informe l'utilisateur d'un problème
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(SignupActivity.this, "Echec d'authentification",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     databaseReference.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue("");

@@ -47,7 +47,7 @@ public class StatistiquesFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
-    public static final int[] COLORS = {
+    private static final int[] COLORS = {
             Color.rgb(245, 205, 121), Color.rgb(61, 193, 211), Color.rgb(248, 165, 194),
             Color.rgb(252, 92, 101), Color.rgb(33, 206, 153), Color.rgb(120, 111, 166)
     };
@@ -178,6 +178,6 @@ public class StatistiquesFragment extends Fragment {
         categoriesChart.setData(data);
         categoriesChart.invalidate();
 
-        depensesPeriode.setText("Dépenses totales sur la période: " + String.valueOf(calculateurStatistiques.getTotalDepenses()) + " $");
+        depensesPeriode.setText("Dépenses totales sur la période: " + String.format("%.2f", calculateurStatistiques.getTotalDepenses()) + " $");
     }
 }
