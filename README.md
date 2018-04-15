@@ -9,7 +9,8 @@ WeSplit est une application Android de gestion des dépenses collaboratives. Ell
 
 <h4>APK</h4>
 
-L'APK, pouvant être mis sur un téléphone Android (Ice Cream Sandwich min) se trouve à la racine du projet.
+L'APK du projet, pouvant être mis sur un téléphone Android (Ice Cream Sandwich min) peut être téléchargée <a href="https://drive.google.com/drive/folders/1opOghcg1jxhMmqb_k6_wJcIFniN_6Stm?usp=sharing" target="_blank">sur ce Google Drive</a>.
+Pour l'installer, suivre <a href="http://www.frandroid.com/comment-faire/tutoriaux/trucs-et-astuces/184151_comment-installer-un-fichier-apk-sur-son-terminal-android" target="_blank">ce tutoriel de frandroid</a>. 
 
 <h4>Configuration et compilation du projet</h4>
 
