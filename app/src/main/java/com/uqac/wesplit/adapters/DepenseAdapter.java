@@ -11,6 +11,10 @@ import com.uqac.wesplit.R;
 
 import java.util.ArrayList;
 
+/**
+ Adapter permettant de générer chaque un élément de la ListView des dépenses
+ */
+
 public class DepenseAdapter extends ArrayAdapter<Depense> {
 
     private ArrayList<Depense> objects;

@@ -20,7 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ Activité permettant de paramétrer son compte
+ */
+
 public class ParamsActivity extends AppCompatActivity {
+
     private EditText inputEmail, inputNewPassword, inputPasswordConfirmation, inputOldPassword;
     private ImageButton btnRetour;
     private Button btnEdit;

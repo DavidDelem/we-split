@@ -30,6 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ Activité permettant d'afficher le chat
+ */
+
+
 public class ChatActivity extends AppCompatActivity {
 
     private Context activity;

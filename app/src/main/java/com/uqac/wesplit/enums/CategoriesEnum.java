@@ -1,5 +1,9 @@
 package com.uqac.wesplit.enums;
 
+/**
+ Enum représentant les catégories possibles
+ */
+
 public enum CategoriesEnum {
 
     COURSES ("Courses"),

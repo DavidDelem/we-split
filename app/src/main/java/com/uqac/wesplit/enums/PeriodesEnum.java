@@ -1,5 +1,9 @@
 package com.uqac.wesplit.enums;
 
+/**
+ Enum représentant les périodes de recherche possibles
+ */
+
 public enum PeriodesEnum {
 
     SEPTJOURS ("7 derniers jours "),

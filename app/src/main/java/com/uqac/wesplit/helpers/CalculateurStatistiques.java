@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ Classe permettant de calculer des statistiques sur les dépenses
+ */
+
 public class CalculateurStatistiques {
 
     private Map<CategoriesEnum, Float> repartitionDepenses;
@@ -22,6 +26,13 @@ public class CalculateurStatistiques {
             repartitionDepenses.put(categorie, 0f);
         }
     }
+
+    /**
+     Répartie les dépenses par catégories
+     @param depenses la liste des dépenses à trier
+     @param periode la période sélectionnée
+     @return void
+     */
 
     public void repartirDepenses(List<Depense> depenses, PeriodesEnum periode) {
 
@@ -47,6 +58,12 @@ public class CalculateurStatistiques {
         }
     }
 
+    /**
+     Renvoie les pourcentages par catégorie
+     @param
+     @return les pourcentages par catégorie
+     */
+
     public Map<CategoriesEnum, Float> obtenirPourcentages() {
         Map<CategoriesEnum, Float> pourcentagesDepenses = new HashMap<CategoriesEnum, Float>();
 
@@ -57,13 +74,21 @@ public class CalculateurStatistiques {
         return pourcentagesDepenses;
     }
 
-    public Map<CategoriesEnum, Float> getRepartitionDepenses() {
-        return repartitionDepenses;
-    }
+    /**
+     Renvoie le total des dépenses
+     @param
+     @return le total des dépenses
+     */
 
     public Float getTotalDepenses() {
         return totalDepenses;
     }
+
+    /**
+     Renvoie le nombre de jours correspondant
+     @param periode la période
+     @return le nombre de jours
+     */
 
     private int getNbJours(PeriodesEnum periode) {
 

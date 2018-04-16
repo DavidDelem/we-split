@@ -15,6 +15,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.uqac.wesplit.R;
 
+/**
+ Activité permettant de gérer la réinitialisation du mot de passe
+ */
+
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText inputEmail;

@@ -30,6 +30,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ Fragment affichant la liste des dépenses
+ */
 
 public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 

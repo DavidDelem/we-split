@@ -33,6 +33,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ Activité permettant de modifier une dépense
+ */
+
 public class ModificationDepenseActivity extends AppCompatActivity {
 
     private Context activity;

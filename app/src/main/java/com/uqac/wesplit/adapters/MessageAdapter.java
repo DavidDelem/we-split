@@ -15,6 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ Adapter permettant de générer chaque un élément de la ListView des messages
+ */
+
 public class MessageAdapter extends ArrayAdapter<Message> {
 
     private ArrayList<Message> objects;

@@ -3,6 +3,10 @@ package com.uqac.wesplit.adapters;
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ Représente une dépense
+ */
+
 public class Depense implements Serializable {
 
     private String _id;

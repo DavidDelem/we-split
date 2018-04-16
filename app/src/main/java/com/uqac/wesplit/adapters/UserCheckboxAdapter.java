@@ -14,6 +14,10 @@ import com.uqac.wesplit.R;
 
 import java.util.ArrayList;
 
+/**
+ Adapter permettant de générer chaque un élément de la ListView des utilisateurs avec une checkbox
+ */
+
 public class UserCheckboxAdapter extends ArrayAdapter<User> {
 
     private ArrayList<User> objects;

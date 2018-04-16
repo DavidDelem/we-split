@@ -36,6 +36,11 @@ import com.uqac.wesplit.fragments.StatistiquesFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Activité principale. Instancie les fragments des différentes vues ainsi que le menu.
+ */
+
+
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;

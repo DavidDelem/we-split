@@ -3,19 +3,33 @@ package com.uqac.wesplit.helpers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ Classe permettant de calculer les équilibres entre les membres d'un groupe
+ */
+
 public class CalculateurEquilibre {
 
-    Map<String, Float> utilisateurDepense;
-    Float totalDepenses;
+    Map<String, Float> utilisateursEquilibres;
 
     public CalculateurEquilibre() {
-        utilisateurDepense = new HashMap<String, Float>();
-        totalDepenses = 0.0f;
+        utilisateursEquilibres = new HashMap<String, Float>();
     }
 
+    /**
+     Ajoute un utilisateur pour le calcul des équilibres
+     @param identifiant l'identifiant de l'utilisateur
+     @return void
+     */
+
     public void ajouterUtilsateur(String identifiant) {
-        utilisateurDepense.put(identifiant, 0.0f);
+        utilisateursEquilibres.put(identifiant, 0.0f);
     }
+
+    /**
+     Ajoute les dépenses et calcul l'équilibre pour chaque dépense
+     @param depenses les dépenses pour lesquelles il faut calculer l'équilibre
+     @return void
+     */
 
     public void ajouterDepenses(Map<String, Map<String, Object>> depenses) {
         if(depenses != null) {
@@ -27,13 +41,13 @@ public class CalculateurEquilibre {
 
                 if(users != null) {
                     for (String user : users.values()) {
-                        if (utilisateurDepense.get(user) != null) {
+                        if (utilisateursEquilibres.get(user) != null) {
                             if (user.equals(id)) {
                                 Float result = montant - (montant / users.size());
-                                utilisateurDepense.put(user, utilisateurDepense.get(user) + result);
+                                utilisateursEquilibres.put(user, utilisateursEquilibres.get(user) + result);
                             } else {
                                 Float result = montant / users.size();
-                                utilisateurDepense.put(user, utilisateurDepense.get(user) - result);
+                                utilisateursEquilibres.put(user, utilisateursEquilibres.get(user) - result);
                             }
                         }
                     }
@@ -42,15 +56,23 @@ public class CalculateurEquilibre {
         }
     }
 
+    /**
+     Renvoie l'équilibre pour un utilisateur donné
+     @param identifiant identifiant de l'utilisateur
+     @return la valeur de l'équilibre
+     */
+
     public String getEquilibreUtilisateur(String identifiant) {
-        return Float.toString(utilisateurDepense.get(identifiant));
+        return Float.toString(utilisateursEquilibres.get(identifiant));
     }
 
-    public Float getTotalDepenses() {
-       return totalDepenses;
-    }
+    /**
+     Renvoie les équilibres de tous les utilisateurs
+     @param
+     @return touts les équilibres
+     */
 
-    public Map<String, Float> getUtilisateurDepense() {
-        return utilisateurDepense;
+    public Map<String, Float> getUtilisateursEquilibres() {
+        return utilisateursEquilibres;
     }
 }

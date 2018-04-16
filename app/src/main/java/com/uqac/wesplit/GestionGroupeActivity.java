@@ -30,6 +30,11 @@ import com.uqac.wesplit.dialogs.SupprimerUtilisateurDialog;
 
 import java.util.ArrayList;
 
+/**
+ Activité permettant de gérer son groupe
+ */
+
+
 public class GestionGroupeActivity extends AppCompatActivity {
 
     private Button btnSupprimer, btnQuitter, btnIdentifiant;

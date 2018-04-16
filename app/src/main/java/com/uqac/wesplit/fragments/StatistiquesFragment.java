@@ -34,6 +34,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ Fragment affichant les statistiques des dépenses
+ */
+
 public class StatistiquesFragment extends Fragment {
 
     private Spinner spinnerPeriode;

@@ -20,6 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.wesplit.ChoixGroupeActivity;
 import com.uqac.wesplit.R;
 
+/**
+ Activité permettant de gérer l'inscription
+ */
+
 public class SignupActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword, inputName;

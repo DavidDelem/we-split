@@ -1,5 +1,9 @@
 package com.uqac.wesplit.adapters;
 
+/**
+ Représente un message
+ */
+
 public class Message {
 
     private String _id;

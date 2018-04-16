@@ -13,6 +13,11 @@ import com.uqac.wesplit.R;
 
 import java.util.ArrayList;
 
+
+/**
+ Adapter permettant de générer chaque un élément de la ListView des utilisateurs
+ */
+
 public class UserAdapter extends ArrayAdapter<User> {
 
     private ArrayList<User> objects;

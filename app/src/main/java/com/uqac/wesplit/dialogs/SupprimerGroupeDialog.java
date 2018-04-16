@@ -21,6 +21,10 @@ import com.uqac.wesplit.R;
 
 import java.util.Map;
 
+/**
+ Fenêtre dialog permettant de supprimer le groupe
+ */
+
 public class SupprimerGroupeDialog extends Dialog {
 
     private Activity c;

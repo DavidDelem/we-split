@@ -71,29 +71,46 @@
                     android:id="@+id/depense_montant"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="0dp"
                     android:hint="@string/hint_montant"
                     android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
-
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="16dp"
+                android:layout_height="wrap_content"
+                android:text="Catégorie"
+                android:layout_marginRight="20dp"/>
             <Spinner
                 android:id="@+id/depense_categorie"
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="16dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"/>
-
+                android:text="Payé par"
+                android:layout_marginRight="27dp"/>
             <Spinner
                 android:id="@+id/depense_payepar"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"/>
-
+        </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
                 android:textSize="16dp"
                 android:text="Pour qui ?"/>
 
@@ -108,7 +125,7 @@
             <Button
                 android:id="@+id/btn_modification_depense"
                 android:layout_width="fill_parent"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="0dip"
                 android:layout_height="60dip"
                 android:text="@string/btn_modification_depense"
                 android:stateListAnimator="@null" />
@@ -116,7 +133,7 @@
             <Button
                 android:id="@+id/btn_suppression_depense"
                 android:layout_width="fill_parent"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="5dip"
                 android:layout_height="60dip"
                 android:text="@string/btn_suppression_depense"
                 android:stateListAnimator="@null" />

@@ -36,6 +36,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ Activité permettant d'ajouter une dépense
+ */
+
 public class AjoutDepenseActivity extends AppCompatActivity {
 
     private Context activity;

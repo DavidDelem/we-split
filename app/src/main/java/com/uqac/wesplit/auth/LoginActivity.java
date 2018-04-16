@@ -24,6 +24,10 @@ import com.uqac.wesplit.ChoixGroupeActivity;
 import com.uqac.wesplit.MainActivity;
 import com.uqac.wesplit.R;
 
+/**
+ Activité permettant de gérer la connexion
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;

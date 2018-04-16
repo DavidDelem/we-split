@@ -1,5 +1,9 @@
 package com.uqac.wesplit.adapters;
 
+/**
+ Représente un utilisateur
+ */
+
 public class User {
 
     private String identifiant;

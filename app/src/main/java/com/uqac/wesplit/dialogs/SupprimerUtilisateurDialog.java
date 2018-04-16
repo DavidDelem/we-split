@@ -15,6 +15,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.wesplit.R;
 import com.uqac.wesplit.auth.LoginActivity;
 
+/**
+ Fenêtre dialog permettant de supprimer un utilisateur du groupe
+ */
+
 public class SupprimerUtilisateurDialog extends Dialog {
 
     private Activity c;

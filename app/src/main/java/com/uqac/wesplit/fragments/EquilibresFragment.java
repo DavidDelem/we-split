@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ Fragment affichant les équilibres entre les personnes
+ */
+
 public class EquilibresFragment extends Fragment {
 
     private FirebaseAuth auth;
@@ -79,7 +83,7 @@ public class EquilibresFragment extends Fragment {
                                 Map<String, Map<String, Object>> depensesGroupe = (Map<String, Map<String, Object>>) dataSnapshot.getValue();
                                 calculateurEquilibre.ajouterDepenses(depensesGroupe);
 
-                                Iterator it = calculateurEquilibre.getUtilisateurDepense().entrySet().iterator();
+                                Iterator it = calculateurEquilibre.getUtilisateursEquilibres().entrySet().iterator();
                                 while (it.hasNext()) {
                                     Map.Entry pair1 = (Map.Entry)it.next();
                                     Map.Entry pair2 = (Map.Entry) (it.hasNext() ? it.next() : null);

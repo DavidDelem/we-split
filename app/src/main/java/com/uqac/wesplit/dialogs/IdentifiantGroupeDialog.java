@@ -21,6 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.R;
 
+/**
+ Fenêtre dialog affichant l'identifiant du groupe
+ */
+
 public class IdentifiantGroupeDialog extends Dialog {
 
     private Activity c;

@@ -16,6 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ Activité confirmant la création du groupe
+ */
+
 public class ConfirmationGroupeActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;

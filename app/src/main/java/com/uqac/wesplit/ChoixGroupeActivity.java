@@ -18,6 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.uqac.wesplit.auth.SignupActivity;
 import com.uqac.wesplit.helpers.TokenGenerator;
 
+/**
+ Activité permettant de rejoindre ou de créer un groupe
+ */
+
+
 public class ChoixGroupeActivity extends AppCompatActivity {
 
     private static final int IDENTIFIANT_LENGTH = 6;

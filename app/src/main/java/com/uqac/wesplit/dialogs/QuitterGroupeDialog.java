@@ -15,6 +15,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.wesplit.auth.LoginActivity;
 import com.uqac.wesplit.R;
 
+/**
+ Fenêtre dialog permettant de quitter le groupe
+ */
+
 public class QuitterGroupeDialog extends Dialog {
 
     private Activity c;
