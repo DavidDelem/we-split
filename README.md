@@ -5,7 +5,7 @@
 
 <h4>Présentation</h4>
 
-WeSplit est une application Android de gestion des dépenses collaboratives. Elle permet à un groupe de personnes ayant crée un compte de gérer leurs dépenses communes et de faire diverses actions liées à celles-ci.
+WeSplit est une application Android de gestion des dépenses collaboratives. Elle permet à un groupe de personnes ayant crée un compte de gérer leurs dépenses communes et de faire diverses actions liées à celles-ci. Le mini-srs est à la racine du Github (<i>Mini-SRS.pdf</i>)
 
 <h4>APK</h4>
 
@@ -14,9 +14,20 @@ Pour l'installer, suivre <a href="http://www.frandroid.com/comment-faire/tutoria
 
 <h4>Configuration et compilation du projet</h4>
 
-Il est nécessaire d'avoir Android Studio. Il faut également un fichier <i>config.json</i> à la racine, contenant les identifiants du compte Firebase associé au projet. Etant donné qu'il contient des mot de passes/identifiants, nous ne pouvons pas le rendre public sur Github (nous pouvons vous l'envoyer par mail ci nécessaire). <b>Le projet ne compilera pas sans ce fichier.</b>
+Il est nécessaire d'avoir Android Studio. Il faut également un fichier <i>google-services.json</i> à la racine, contenant les identifiants du compte Firebase associé au projet. Il contient des mot de passes/identifiants, nous ne pouvons donc pas le rendre public (nous pouvons l'envoyer par mail). <b>Le projet ne compilera pas sans ce fichier.</b>
 
 <h4>Gifs de l'interface</h4>
+
+<p align="center">
+  <img src="imgreadme/interfacegif1.gif" width="300"/>
+  ____
+  <img src="imgreadme/interfacegif6.gif" width="300"/>
+</p><br>
+<p align="center">
+  <img src="imgreadme/interfacegif2.gif" width="300"/>
+  ____
+  <img src="imgreadme/interfacegif7.gif" width="300"/>
+</p>
 
 <h4>Toutes les fonctionnalités</h4>
 
