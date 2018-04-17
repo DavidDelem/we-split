@@ -48,6 +48,7 @@ public class IdentifiantGroupeDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_identifiant_groupe);
 
+        // Récupération des élements de la vue
         exitButton = (Button) findViewById(R.id.btn_exit_identifiant_modal);
         copieButton = (Button) findViewById(R.id.btn_copier_identifiant);
         identifiantGroupeText = (TextView) findViewById(R.id.txt_identifiant_groupe);
@@ -55,6 +56,7 @@ public class IdentifiantGroupeDialog extends Dialog {
 
         setIdentifiantGroupe();
 
+        // Clic sur le bouton quitter
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +64,7 @@ public class IdentifiantGroupeDialog extends Dialog {
             }
         });
 
+        // Clic sur le bouton copier l'identifiant
         copieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +77,11 @@ public class IdentifiantGroupeDialog extends Dialog {
         });
 
     }
-
+    /**
+     Récupére et affiche l'identifiant du groupe
+     @param
+     @return void
+     */
     private void setIdentifiantGroupe() {
 
         progressBar.setVisibility(View.VISIBLE);

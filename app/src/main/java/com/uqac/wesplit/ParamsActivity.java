@@ -39,9 +39,6 @@ public class ParamsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
 
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
         // Récupération des éléments de la vue
         inputEmail = (EditText) findViewById(R.id.email);
         inputEmail.setText(auth.getCurrentUser().getEmail());
@@ -52,7 +49,9 @@ public class ParamsActivity extends AppCompatActivity {
         btnEdit = (Button) findViewById(R.id.btn_edit);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-
+        // Authentification
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         // Clic sur le bouton permettant de modifier les informations du compte
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +67,7 @@ public class ParamsActivity extends AppCompatActivity {
 
                 final FirebaseUser user = auth.getInstance().getCurrentUser();
 
+                // Contrôle de la validité des données saisies
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Entrez une adresse email", Toast.LENGTH_SHORT).show();
                     return;
@@ -94,11 +94,7 @@ public class ParamsActivity extends AppCompatActivity {
                     }
                 }
 
-
-
-
                 progressBar.setVisibility(View.VISIBLE);
-
 
                 //On doit réauthentifier l'user pour modifier ses infos (sinon erreur firebase)
                 AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
@@ -148,11 +144,6 @@ public class ParamsActivity extends AppCompatActivity {
                 }
             }
         });
-        // A FAIRE:
-
-        // modifier mon adresse mail (a faire avec les fonctions de firebase)
-        // modifier mon mot de passe (a faire avec les fonctions de firebase)
-        // supprimer mon compte (a faire avec les fonctions de firebase + supprimer user dans la bdd + supprimer user dans le groupe associé)
 
         // Retour à l'activité principale
         btnRetour.setOnClickListener(new View.OnClickListener() {

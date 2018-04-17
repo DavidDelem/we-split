@@ -60,15 +60,15 @@ public class QuitterGroupeDialog extends Dialog {
         });
     }
 
+    /**
+     Permet de quitter le groupe
+     @param
+     @return void
+     */
     private void quitterGroupe() {
         database.getReference("groupes/" + identifiantGroupe + "/users/" + auth.getCurrentUser().getUid()).setValue(null);
         database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe").setValue(null);
-        disconnect();
-    }
-
-    private void disconnect() {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(c.getApplicationContext(), "Vous avez quité le groupe et avez été déconnecté.", Toast.LENGTH_LONG).show();
+        Toast.makeText(c.getApplicationContext(), "Vous avez quité le groupe.", Toast.LENGTH_LONG).show();
         c.startActivity(new Intent(c, LoginActivity.class));
         c.finish();
     }

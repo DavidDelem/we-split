@@ -40,11 +40,9 @@ import java.util.List;
  Activité principale. Instancie les fragments des différentes vues ainsi que le menu.
  */
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private View headerView;
     private TextView headerName, headerEmail;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -73,7 +71,20 @@ public class MainActivity extends AppCompatActivity {
         buttonChat = (ImageButton) findViewById(R.id.btn_chat);
         headerName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_name);
         headerEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_email);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        // Authentification
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        // Configuration de la toolbar
+        toolbar.setTitle(getString(R.string.app_name));
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.mipmap.ic_menu_white_24dp);
+
+        // Mise en place du système de navigation
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -103,29 +114,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        toolbar = (Toolbar) findViewById(R.id.mytoolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.mipmap.ic_menu_white_24dp);
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
+        // Contrôle de l'authentification. Redirection vers l'activité de Login si l'utilisateur n'est pas authentifié
+        // Sinon, création de la vue
         if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         } else {
 
-            // Création de la vue
-
-            progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }
 
+            // Récupération des données de l'utilisateur
             DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid());
 
             ref.addValueEventListener(new ValueEventListener() {
@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
                     String groupe = (String) dataSnapshot.child("groupe").getValue();
 
+                    // Si l'utilisateur n'a pas encore créé ou rejoint un groupe, on le redirige vers l'activité de choix du groupe
+                    // Sinon, on finalise l'affichage de l'interface
                     if(groupe == null || groupe.length() == 0) {
                         startActivity(new Intent(MainActivity.this, ChoixGroupeActivity.class));
                         finish();
@@ -149,9 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
 
         }
@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onResume() {
         super.onResume();
-        // refresh list?
-        System.out.println("retour à mainactivity detecté");
     }
 
     @Override

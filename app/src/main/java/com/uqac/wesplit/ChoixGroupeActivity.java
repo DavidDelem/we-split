@@ -22,7 +22,6 @@ import com.uqac.wesplit.helpers.TokenGenerator;
  Activité permettant de rejoindre ou de créer un groupe
  */
 
-
 public class ChoixGroupeActivity extends AppCompatActivity {
 
     private static final int IDENTIFIANT_LENGTH = 6;
@@ -45,9 +44,11 @@ public class ChoixGroupeActivity extends AppCompatActivity {
         btnNouveau = (Button) findViewById(R.id.btn_nouveaugroupe);
         btnRejoindre = (Button) findViewById(R.id.btn_rejoindregroupe);
 
+        // authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
+        // Bouton de création d'un nouveau groupe
         btnNouveau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,11 +61,13 @@ public class ChoixGroupeActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        // Création et enregistrement du groupe
                         DatabaseReference ref = database.getReference();
                         ref.child("groupes").child(identifiantGroupe).child("users").child(auth.getCurrentUser().getUid()).setValue(dataSnapshot.getValue());
                         ref.child("groupes").child(identifiantGroupe).child("name").setValue(nomGroupe);
                         ref.child("users").child(auth.getCurrentUser().getUid()).child("groupe").setValue(identifiantGroupe);
 
+                        // Transfert des données à la prochaine activitée
                         Intent intent = new Intent(ChoixGroupeActivity.this, ConfirmationGroupeActivity.class);
                         intent.putExtra("type", "nouveau");
                         intent.putExtra("nomGroupe", nomGroupe);
@@ -81,6 +84,7 @@ public class ChoixGroupeActivity extends AppCompatActivity {
             }
         });
 
+        // Bouton pour rejoindre un groupe existant
         btnRejoindre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

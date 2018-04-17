@@ -54,22 +54,26 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_depenses, container, false);
-        listview = (ListView) view.findViewById(R.id.listview_depenses);
 
+        // Récupération des éléments de la vue
+        listview = (ListView) view.findViewById(R.id.listview_depenses);
         textNoDepenses = (TextView) view.findViewById(R.id.text_no_depenses);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeLayout.setOnRefreshListener(this);
+
+        // Authentification
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         final ArrayList<Depense> items = new ArrayList<>();
 
         adapter = new DepenseAdapter(this.getActivity(), R.layout.row_list_depenses, items);
         listview.setAdapter(adapter);
 
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
         progressBar.setVisibility(View.VISIBLE);
+        swipeLayout.setOnRefreshListener(this);
+
+        // Récupération des données
 
         DatabaseReference refUser = database.getReference("users/" + auth.getCurrentUser().getUid());
 
@@ -129,6 +133,7 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
         });
 
+        // Ouverture de l'activité de modification de la dépense au clic sur la listview.
         listview.setClickable(true);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -136,7 +141,6 @@ public class DepensesFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 Depense depense = (Depense) listview.getItemAtPosition(position);
-
                 Intent intent = new Intent(getActivity(), ModificationDepenseActivity.class);
                 intent.putExtra("depense", depense);
                 startActivity(intent);

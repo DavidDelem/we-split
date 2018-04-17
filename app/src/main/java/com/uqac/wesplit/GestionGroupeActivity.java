@@ -60,6 +60,7 @@ public class GestionGroupeActivity extends AppCompatActivity {
         btnIdentifiant = (Button) findViewById(R.id.btn_afficher_identifiant_groupe);
         listUsers = (ListView) findViewById(R.id.listview_users);
 
+        // authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 

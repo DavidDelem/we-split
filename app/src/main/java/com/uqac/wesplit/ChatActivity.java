@@ -60,6 +60,7 @@ public class ChatActivity extends AppCompatActivity {
         btnBack = (ImageButton) findViewById(R.id.btn_chat_retour);
         listMessages = (ListView) findViewById(R.id.listview_messages);
 
+        // authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -71,11 +72,13 @@ public class ChatActivity extends AppCompatActivity {
 
         DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid());
 
+        // Récupération de la liste des messages
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                userInfos =  (Map<String, String>) dataSnapshot.getValue();
+                userInfos = (Map<String, String>) dataSnapshot.getValue();
 
                 DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
 
@@ -83,11 +86,11 @@ public class ChatActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        // Enregistrement et ajout du message reçu
                         Message message = dataSnapshot.getValue(Message.class);
                         message.set_id(dataSnapshot.getKey());
                         messages.add(message);
                         adapter.notifyDataSetChanged();
-//                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -113,17 +116,17 @@ public class ChatActivity extends AppCompatActivity {
         btnEnvoyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String message = inputMessage.getText().toString();
+                String message = inputMessage.getText().toString();
+                DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
 
+                // Contrôles de la validité du message
                 if (TextUtils.isEmpty(message)) {
                     Toast.makeText(getApplicationContext(), "Entrez un message !", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 inputMessage.setText("");
 
-                DatabaseReference ref = database.getReference("groupes/" + userInfos.get("groupe") + "/messages");
-
+                // Envoi du message
                 Map<String,String> datas = new HashMap<>();
                 datas.put("message", message);
                 datas.put("date", TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + "");
@@ -132,7 +135,6 @@ public class ChatActivity extends AppCompatActivity {
 
                 String key = ref.push().getKey();
                 ref.child(key).setValue(datas);
-
             }
         });
 

@@ -41,12 +41,13 @@ public class CalculateurStatistiques {
         calendar.add(Calendar.DAY_OF_YEAR, nbJours);
         Long timestampDebut = calendar.getTime().getTime() / 1000;
 
+        // Réinitialisation
         for (CategoriesEnum categorie : CategoriesEnum.values()) {
             repartitionDepenses.put(categorie, 0f);
         }
-
         totalDepenses = 0.0f;
 
+        // Parcours des dépenses et ajout
         if(depenses != null) {
             for (Depense depense : depenses) {
                     if(depense.getTimestamp() != null && (Long.valueOf(depense.getTimestamp()) > timestampDebut || nbJours == 0)) {

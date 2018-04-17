@@ -57,7 +57,6 @@ public class SupprimerGroupeDialog extends Dialog {
                 dismiss();
             }
         });
-
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +65,13 @@ public class SupprimerGroupeDialog extends Dialog {
         });
     }
 
+    /**
+     Permet de supprimer le groupe
+     @param
+     @return void
+     */
     private void supprimerGroupe() {
 
-        //progressBar.setVisibility(View.VISIBLE);
         DatabaseReference ref = database.getReference("groupes/" + identifiantGroupe + "/users");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,20 +83,15 @@ public class SupprimerGroupeDialog extends Dialog {
                     database.getReference("users/" + entry.getKey() + "/groupe").setValue(null);
                 }
                 database.getReference("groupes/" + identifiantGroupe).setValue(null);
-                disconnect();
-                //progressBar.setVisibility(View.GONE);
+
+                Toast.makeText(c.getApplicationContext(), "Le groupe a été définitivement supprimé.", Toast.LENGTH_LONG).show();
+                c.startActivity(new Intent(c, LoginActivity.class));
+                c.finish();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-    }
-
-    private void disconnect() {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(c.getApplicationContext(), "Le groupe a été définitivement supprimé. Vous avez été déconnecté.", Toast.LENGTH_LONG).show();
-        c.startActivity(new Intent(c, LoginActivity.class));
-        c.finish();
     }
 
 }

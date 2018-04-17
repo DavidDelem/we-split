@@ -69,19 +69,21 @@ public class ModificationDepenseActivity extends AppCompatActivity {
         btnBack = (ImageButton) findViewById(R.id.btn_depense_retour);
         listUsersCheckbox = (ListView) findViewById(R.id.listview_users_checkbox);
 
+        // Authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        // Création de la liste des catégories de dépenses possibles
-        spinnerCategories.setAdapter(new ArrayAdapter<CategoriesEnum>(this, android.R.layout.simple_spinner_dropdown_item, CategoriesEnum.values()));
-
+        // Récupération de la dépense sélectionnée et affichage de celle-ci.
         final Depense depense = (Depense) getIntent().getSerializableExtra("depense");
         depenseTitre.setText(depense.getTitre());
         depenseMontant.setText(depense.getMontant());
+        spinnerCategories.setAdapter(new ArrayAdapter<CategoriesEnum>(this, android.R.layout.simple_spinner_dropdown_item, CategoriesEnum.values()));
         spinnerCategories.setSelection(getIndex(spinnerCategories, depense.getCategorie()));
 
+        // Récupération de la liste des utilisateurs
+        // Permet la création du spinner permettant de choisir les personnes associées à la dépense
+        // Permet également de cocher les utilisateurs associés à cette dépense
         DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe");
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,7 +100,7 @@ public class ModificationDepenseActivity extends AppCompatActivity {
                         int i = 0;
                         for (Map.Entry<String, String> entry : usersGroupe.entrySet()) {
                             User user = new User(entry.getKey(), entry.getValue());
-                            if(!depense.getUsers().containsValue(user.getIdentifiant())) {
+                            if(depense.getUsers() != null && !depense.getUsers().containsValue(user.getIdentifiant())) {
                                 user.setSelected(false);
                             }
                             userList.add(user);
@@ -152,6 +154,7 @@ public class ModificationDepenseActivity extends AppCompatActivity {
             }
         });
 
+        // Clic sur le bouton de confirmation de modification de la dépense
         btnConfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +162,7 @@ public class ModificationDepenseActivity extends AppCompatActivity {
                 final String titre = depenseTitre.getText().toString().trim();
                 final String montant = depenseMontant.getText().toString().trim();
 
+                // Contrôles des données saisies
                 if (TextUtils.isEmpty(titre)) {
                     Toast.makeText(getApplicationContext(), "Entrez un titre !", Toast.LENGTH_SHORT).show();
                     return;

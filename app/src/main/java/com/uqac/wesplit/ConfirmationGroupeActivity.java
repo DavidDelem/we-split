@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ConfirmationGroupeActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
     private TextView identifiantGroupeText, confirmationGroupeText;
     private Button btnContinuer;
     private CardView cardView;
@@ -36,23 +35,22 @@ public class ConfirmationGroupeActivity extends AppCompatActivity {
         identifiantGroupeText = (TextView) findViewById(R.id.confirmationgroupe_identifiant);
         confirmationGroupeText = (TextView) findViewById(R.id.confirmationgroupe_texte);
         btnContinuer = (Button) findViewById(R.id.btn_continuer);
-        cardView = (CardView) findViewById(R.id.card_view_confirmationgroupe);
 
-        auth = FirebaseAuth.getInstance();
-
+        // Récupération des données
         Bundle extras = getIntent().getExtras();
-
         if (extras != null) {
             if(extras.getString("type").equals("nouveau")) {
+                // Cas ou l'utilisateur à créé un nouveau groupe
                 confirmationGroupeText.setText("Vous avez créé le groupe " + extras.getString("nomGroupe") + " ! Partagez cet identifiant avec vos amis afin qu'ils puissent vous rejoindre.");
                 identifiantGroupeText.setText(extras.getString("identifiantGroupe"));
             } else if(extras.getString("type").equals("rejoindre")) {
+                // Cas ou l'utilisateur à rejoint un groupe existant
                 confirmationGroupeText.setText("Vous avez rejoint le groupe " + extras.getString("nomGroupe") + " ! Vous pouvez désormais commencer à utiliser l'application.");
-                identifiantGroupeText.setText(extras.getString("identifiantGroupe"));
-                cardView.setVisibility(View.GONE);
+                identifiantGroupeText.setVisibility(View.GONE);
             }
         }
 
+        // Clic sur le bouton continuer
         btnContinuer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

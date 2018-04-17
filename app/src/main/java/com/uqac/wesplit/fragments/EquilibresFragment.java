@@ -47,13 +47,16 @@ public class EquilibresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_equilibres, container, false);
 
         ll = (LinearLayout) view.findViewById(R.id.view_eq);
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        calculateurEquilibre = new CalculateurEquilibre();
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
+        // Authentification
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        calculateurEquilibre = new CalculateurEquilibre();
         progressBar.setVisibility(View.VISIBLE);
+
+        // Récupération des données
         DatabaseReference refUser = database.getReference("users/" + auth.getCurrentUser().getUid());
 
         refUser.addListenerForSingleValueEvent(new ValueEventListener() {

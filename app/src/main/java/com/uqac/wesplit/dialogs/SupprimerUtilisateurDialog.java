@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.uqac.wesplit.MainActivity;
 import com.uqac.wesplit.R;
 import com.uqac.wesplit.auth.LoginActivity;
 
@@ -62,16 +63,17 @@ public class SupprimerUtilisateurDialog extends Dialog {
         });
     }
 
+    /**
+     Permet de supprimer un utilisateur
+     @param
+     @return void
+     */
+
     private void supprimerUtilisateur() {
         database.getReference("groupes/" + identifiantGroupe + "/users/" + identifiantUser).setValue(null);
         database.getReference("users/" + identifiantUser + "/groupe").setValue(null);
-        disconnect();
-    }
-
-    private void disconnect() {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(c.getApplicationContext(), "Vous avez quité le groupe et avez été déconnecté.", Toast.LENGTH_LONG).show();
-        c.startActivity(new Intent(c, LoginActivity.class));
+        Toast.makeText(c.getApplicationContext(), "L'utilisateur à été supprimé.", Toast.LENGTH_LONG).show();
+        c.startActivity(new Intent(c, MainActivity.class));
         c.finish();
     }
 

@@ -71,6 +71,7 @@ public class AjoutDepenseActivity extends AppCompatActivity {
         btnBack = (ImageButton) findViewById(R.id.btn_depense_retour);
         listUsersCheckbox = (ListView) findViewById(R.id.listview_users_checkbox);
 
+        // authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -79,8 +80,8 @@ public class AjoutDepenseActivity extends AppCompatActivity {
         // Création de la liste des catégories de dépenses possibles
         spinnerCategories.setAdapter(new ArrayAdapter<CategoriesEnum>(this, android.R.layout.simple_spinner_dropdown_item, CategoriesEnum.values()));
 
+        // Récupération de la liste des membres du groupe pour pouvoir choisir à qui est associé la dépense et qui l'a payée
         DatabaseReference ref = database.getReference("users/" + auth.getCurrentUser().getUid() + "/groupe");
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -139,6 +140,8 @@ public class AjoutDepenseActivity extends AppCompatActivity {
                 final String titre = depenseTitre.getText().toString().trim();
                 final String montant = depenseMontant.getText().toString().trim();
 
+                // Contrôles
+
                 if (TextUtils.isEmpty(titre)) {
                     Toast.makeText(getApplicationContext(), "Entrez un titre !", Toast.LENGTH_SHORT).show();
                     return;
@@ -174,6 +177,7 @@ public class AjoutDepenseActivity extends AppCompatActivity {
                                 }
                             }
 
+                            // Construction de l'objet dépense
                             Depense depense = new Depense();
                             depense.setTitre(titre);
                             depense.setMontant(montant);
@@ -198,14 +202,12 @@ public class AjoutDepenseActivity extends AppCompatActivity {
             }
         });
 
+        // Détection du clic sur une checkbox permettant de sélectionner les utilisateurs associés à une dépense
         listUsersCheckbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // When clicked, show a toast with the TextView text
                 User user = (User) parent.getItemAtPosition(position);
-
                 CheckBox checkBox = view.findViewById(R.id.checkbox_user);
-
                 if(checkBox.isChecked()) {
                     userList.get(userList.indexOf(user)).setSelected(true);
                 } else {
