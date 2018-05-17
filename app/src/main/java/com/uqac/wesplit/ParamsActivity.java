@@ -41,7 +41,6 @@ public class ParamsActivity extends AppCompatActivity {
 
         // Récupération des éléments de la vue
         inputEmail = (EditText) findViewById(R.id.email);
-        inputEmail.setText(auth.getCurrentUser().getEmail());
         inputOldPassword = (EditText) findViewById(R.id.oldPassword);
         inputNewPassword = (EditText) findViewById(R.id.newPassword);
         inputPasswordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
@@ -52,6 +51,7 @@ public class ParamsActivity extends AppCompatActivity {
         // Authentification
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        inputEmail.setText(auth.getCurrentUser().getEmail());
 
         // Clic sur le bouton permettant de modifier les informations du compte
         btnEdit.setOnClickListener(new View.OnClickListener() {
